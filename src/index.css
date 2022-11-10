@@ -1,0 +1,40 @@
+@import-normalize;
+
+/* Body */
+#mainContainer {
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* NavBar */
+#navBar {
+  background-color: #001b3e;
+}
+
+#navBar .navbar-brand,
+#navBar .navbar-text {
+  color: white;
+}
+
+#navBar #menuContainer button {
+  background-color: white;
+}
+
+#navBar #menuContainer .navbar-brand img {
+  margin: 10px;
+}
+
+#navBar #menu,
+#navBar #menu a {
+  color: grey;
+  text-decoration: none;
+  padding: 15px;
+}
+
+#navBar #menu a:hover {
+  color: white;
+}
+
+#navBar #menu a.active {
+  color: white;
+}
