@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Route, Routes } from "react-router-dom";
 
 import { Layout } from "./components";
+import { menu } from "./menu";
+import mainContext from "./context";
 
-const menu = [
-  { route: "/", text: "Home", element: <div>home</div> },
-  { route: "/locations", text: "Locations", element: <div>locations</div> },
-  { route: "/about", text: "About Us", element: <div>about</div> },
-  { route: "/faq", text: "FAQ", element: <div>faq</div> },
-];
+const { Provider } = mainContext;
+
+//Replace with loggin and initial data
+let mainData = {
+  isLogged: true,
+  username: "Edward",
+  urlImage:
+    "https://avatars.githubusercontent.com/u/58954908?s=400&u=630e8c52ba87128cc657821b622c0d56ee89aea7&v=4",
+};
 
 function App() {
+  const [mainState, setMainState] = useState({});
+
+  const login = () => {
+    setMainState(mainData);
+  };
+
+  const logout = () => {
+    setMainState({});
+  };
+
   return (
-    <Layout menu={menu}>
-      <Routes>
-        {menu.map((link) => (
-          <Route key={link.text} path={link.route} element={link.element} />
-        ))}
-      </Routes>
-    </Layout>
+    <Provider value={{ ...mainState, logout, login }}>
+      <Layout menu={menu}>
+        <Routes>
+          {menu.map((link) => (
+            <Route key={link.text} path={link.route} element={link.element} />
+          ))}
+        </Routes>
+      </Layout>
+    </Provider>
   );
 }
 

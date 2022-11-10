@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { NavDropdown, Image } from "react-bootstrap";
+
+import mainContext from "../../context";
 
 const { Item, Divider } = NavDropdown;
 
 export default function Avatar() {
+  const { username, urlImage, isLogged, logout, login } =
+    useContext(mainContext);
+
+  const items = () => {
+    if (isLogged) {
+      return (
+        <>
+          <Item href="/profile">My Profile</Item>
+          <Item href="/qrcodes">My QR Codes</Item>
+          <Divider />
+          <Item onClick={() => logout()}>Log Out</Item>
+        </>
+      );
+    } else {
+      return <Item onClick={() => login()}>Log In</Item>;
+    }
+  };
+
   return (
     <NavDropdown
       title={
-        <Image
-          alt="avatar"
-          src="images/avatar.png"
-          width="60"
-          height="60"
-          roundedCircle
-        />
+        <>
+          <Image
+            alt="avatar"
+            src={urlImage ? urlImage : "images/avatar.png"}
+            roundedCircle
+          />
+
+          {username}
+        </>
       }
       id="nav-dropdown"
     >
-      <Item href="#action/3.1">Action</Item>
-      <Item href="#action/3.2">Another action</Item>
-      <Item href="#action/3.3">Something</Item>
-      <Divider />
-      <Item href="#action/3.4">Separated link</Item>
+      {items()}
     </NavDropdown>
   );
 }

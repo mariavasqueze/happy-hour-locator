@@ -16,6 +16,16 @@
   color: white;
 }
 
+#navBar #menuContainer {
+  color: white;
+}
+
+#navBar #menuContainer img {
+  width: 60px;
+  height: 60px;
+  padding: 5px;
+}
+
 #navBar #menuContainer button {
   background-color: white;
 }
