@@ -12,7 +12,7 @@ const { Provider } = mainContext;
 let mainData = {
   isLogged: true,
   username: "Edward",
-  urlImage:
+  imageUrl:
     "https://avatars.githubusercontent.com/u/58954908?s=400&u=630e8c52ba87128cc657821b622c0d56ee89aea7&v=4",
 };
 

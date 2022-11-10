@@ -7,7 +7,7 @@ import mainContext from "../../context";
 const { Item, Divider } = NavDropdown;
 
 export default function Avatar() {
-  const { username, urlImage, isLogged, logout, login } =
+  const { username, imageUrl, isLogged, logout, login } =
     useContext(mainContext);
 
   const items = () => {
@@ -31,7 +31,7 @@ export default function Avatar() {
         <>
           <Image
             alt="avatar"
-            src={urlImage ? urlImage : "images/avatar.png"}
+            src={imageUrl ? imageUrl : "images/avatar.png"}
             roundedCircle
           />
 
