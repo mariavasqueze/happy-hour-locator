@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Container } from "../common";
+
 export default function About() {
-  return <div>About</div>;
+  return <Container noFluid>About</Container>;
 }
