@@ -6,5 +6,22 @@ import Locations from "./locations/Locations";
 import Profile from "./profile/Profile";
 import QRCodes from "./qrcodes/QRCodes";
 import Signup from "./signup/Signup";
+import Dashboard from "./Supplier/dashboard/Dashboard";
+import Events from "./Supplier/events/Events";
+import Login from "./Supplier/login/Login";
+import Scanner from "./Supplier/scanner/Scanner";
 
-export { About, Faq, Home, Layout, Locations, Profile, QRCodes, Signup };
+export {
+  About,
+  Faq,
+  Home,
+  Layout,
+  Locations,
+  Profile,
+  QRCodes,
+  Signup,
+  Dashboard,
+  Events,
+  Login,
+  Scanner,
+};
