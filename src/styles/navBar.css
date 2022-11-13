@@ -11,6 +11,11 @@
   color: white;
 }
 
+#navBar #menuContainer .dropdown-menu a {
+  color: black;
+  text-decoration: none;
+}
+
 #navBar #menuContainer img {
   width: 60px;
   height: 60px;

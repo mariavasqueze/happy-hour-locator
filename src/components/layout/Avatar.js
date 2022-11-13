@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 
+import { NavLink } from "react-router-dom";
 import { NavDropdown, Image } from "react-bootstrap";
 
 import mainContext from "../../context";
@@ -14,8 +15,12 @@ export default function Avatar() {
     if (isLogged) {
       return (
         <>
-          <Item href="/profile">My Profile</Item>
-          <Item href="/qrcodes">My QR Codes</Item>
+          <Item>
+            <NavLink to="/profile">My Profile</NavLink>
+          </Item>
+          <Item>
+            <NavLink to="/qrcodes">My QR Codes</NavLink>
+          </Item>
           <Divider />
           <Item onClick={() => logout()}>Log Out</Item>
         </>
