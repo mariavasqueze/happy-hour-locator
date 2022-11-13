@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Container, Row, Col } from "react-bootstrap";
-import { WhiteCenteredContainer } from "../common";
+import { Row, Col } from "react-bootstrap";
+
+import { Container, WhiteCenteredContainer } from "../common";
 
 export default function Home() {
   return (
-    <Container fluid>
+    <Container>
       <Row>
         <Col xs={12} sm={5}>
           Happy hour locator

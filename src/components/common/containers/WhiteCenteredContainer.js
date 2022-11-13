@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+
+import { Container } from "../";
 
 export default function WhiteCenteredContainer({
   children,
@@ -8,7 +10,7 @@ export default function WhiteCenteredContainer({
   offset = 2,
 }) {
   return (
-    <Container fluid>
+    <Container>
       <Row>
         <Col xs={12} sm={{ span, offset }} className="whiteCenteredContainer">
           {children}

@@ -1,3 +1,2 @@
-import WhiteCenteredContainer from "./containers/WhiteCenteredContainer";
-
-export { WhiteCenteredContainer };
+export * from "./animations";
+export * from "./containers";
