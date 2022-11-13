@@ -17,7 +17,9 @@ export default function Layout({ children, menu }) {
         </Container>
       </Navbar>
 
-      {children}
+      <Container fluid id="contentContainer">
+        {children}
+      </Container>
     </Container>
   );
 }

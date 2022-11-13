@@ -1,4 +1,22 @@
 #mainContainer {
   padding: 0;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+}
+
+#contentContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.whiteCenteredContainer {
+  border-radius: 20px;
+  background-color: white;
+  min-height: 350px;
 }
