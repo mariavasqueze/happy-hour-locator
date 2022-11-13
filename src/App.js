@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Layout } from "./components";
-import { menu } from "./menu";
+import { routes } from "./routes";
 import mainContext from "./context";
 
 const { Provider } = mainContext;
@@ -29,10 +29,10 @@ function App() {
 
   return (
     <Provider value={{ ...mainState, logout, login }}>
-      <Layout menu={menu}>
+      <Layout>
         <Routes>
-          {menu.map((link) => (
-            <Route key={link.text} path={link.route} element={link.element} />
+          {routes.map((link) => (
+            <Route key={link.route} path={link.route} element={link.element} />
           ))}
         </Routes>
       </Layout>

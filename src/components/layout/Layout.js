@@ -6,13 +6,13 @@ import Brand from "./Brand";
 import Avatar from "./Avatar";
 import Menu from "./Menu";
 
-export default function Layout({ children, menu }) {
+export default function Layout({ children }) {
   return (
     <Container fluid id="mainContainer">
       <Navbar id="navBar" expand="lg">
         <Container id="menuContainer">
           <Brand />
-          <Menu menu={menu} />
+          <Menu />
           <Avatar />
         </Container>
       </Navbar>

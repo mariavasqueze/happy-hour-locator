@@ -5,7 +5,15 @@ import { Nav, Navbar } from "react-bootstrap";
 
 const { Collapse, Toggle } = Navbar;
 
-export default function Menu({ menu }) {
+const menu = [
+  { route: "/", text: "Home" },
+  { route: "/locations", text: "Locations" },
+  { route: "/about", text: "About Us" },
+  { route: "/faq", text: "FAQ" },
+  { route: "/signup", text: "Sign-Up" },
+];
+
+export default function Menu() {
   return (
     <>
       <Toggle aria-controls="menu" />
