@@ -20,10 +20,8 @@ export default function Menu() {
 
       <Collapse className="justify-content-end" id="menu">
         {menu.map((link) => (
-          <Nav>
-            <NavLink key={link.text} to={link.route}>
-              {link.text}
-            </NavLink>
+          <Nav key={link.text}>
+            <NavLink to={link.route}>{link.text}</NavLink>
           </Nav>
         ))}
       </Collapse>
