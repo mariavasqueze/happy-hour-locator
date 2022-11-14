@@ -15,12 +15,12 @@ export default function Avatar() {
     if (isLogged) {
       return (
         <>
-          <Item>
-            <NavLink to="/profile">My Profile</NavLink>
-          </Item>
-          <Item>
-            <NavLink to="/qrcodes">My QR Codes</NavLink>
-          </Item>
+          <NavLink className="dropdown-item" to="/profile">
+            My Profile
+          </NavLink>
+          <NavLink className="dropdown-item" to="/qrcodes">
+            My QR Codes
+          </NavLink>
           <Divider />
           <Item onClick={() => logout()}>Log Out</Item>
         </>
