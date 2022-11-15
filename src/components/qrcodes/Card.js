@@ -9,7 +9,7 @@ export default function Card({ code }) {
     <Col xs={12} className={"cardContainer "}>
       <div className={code.redeemed ? "layer" : ""}></div>
       <Row>
-        <Col xs={6}>
+        <Col xs={12} sm={6}>
           <CardBS>
             <Img variant="top" src={code.image} />
             <Body>
@@ -38,7 +38,8 @@ export default function Card({ code }) {
             </Body>
           </CardBS>
         </Col>
-        <Col xs={6} className="codeContainer">
+
+        <Col xs={12} sm={6} className="codeContainer">
           <QRCode size={150} value={code.code} />
           <div>{code.code}</div>
           <div>
