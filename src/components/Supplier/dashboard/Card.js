@@ -49,6 +49,8 @@ export default function Card({ event }) {
             </Col>
           </Row>
 
+          <br />
+
           <Row>
             {event.codes.map((code) => (
               <Col key={code.code}>
