@@ -1,0 +1,39 @@
+/* Profile Image */
+.profileImg {
+    max-width: 105px;
+    max-height: 105px;
+}
+
+/* Forms form */
+.label {
+    font-size: 1.5em;
+}
+.input {
+    font-size: 1.2em;
+    min-height: 55px;
+    border-radius: 24px;
+
+}
+
+/* Purple Button  */
+.purpleBtn {
+    background-color: #7291E3;  
+    /* border-color: #7291E3; */
+    border-radius: 24px;
+    padding: 10px 30px;
+
+}
+.purpleBtn:hover {
+    background-color: #7290e3a7;
+    box-shadow: 1px 2px 1px#7291E3;
+}
+
+/* Payment Section */
+.paymentTitle {
+    font-size: 1.8rem;
+    margin: 30px 0px 20px 0px;
+}
+
+#paymentInput {
+    max-width: 500px
+}
