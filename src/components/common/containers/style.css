@@ -1,0 +1,11 @@
+div.whiteCenteredContainer {
+  border-radius: 20px;
+  background-color: #edf1f0;
+  min-height: 350px;
+  padding: 25px 55px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.whiteCenteredContainer h2 {
+  font-weight: 700;
+}

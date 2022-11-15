@@ -1,3 +1,20 @@
+#mainContainer {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #001b3e;
+}
+
+#contentContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 15px;
+}
+
 #navBar {
   background-color: #001b3e;
 }

@@ -6,7 +6,8 @@ const { Img, Body, Text } = CardBS;
 
 export default function Card({ code }) {
   return (
-    <Col xs={12} className="cardContainer">
+    <Col xs={12} className={"cardContainer "}>
+      <div className={code.redeemed ? "layer" : ""}></div>
       <Row>
         <Col xs={6}>
           <CardBS>
@@ -39,6 +40,16 @@ export default function Card({ code }) {
         </Col>
         <Col xs={6} className="codeContainer">
           <QRCode size={150} value={code.code} />
+          <div>{code.code}</div>
+          <div>
+            Status:{" "}
+            <span
+              className={
+                "statusCode " + (code.redeemed ? "statusGrey" : "statusGreen")
+              }
+            ></span>
+            {code.redeemed ? " Redeemed " : " Available "}
+          </div>
         </Col>
       </Row>
     </Col>

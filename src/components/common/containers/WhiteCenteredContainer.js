@@ -4,6 +4,8 @@ import { Row, Col } from "react-bootstrap";
 
 import { Container } from "../";
 
+import "./style.css";
+
 export default function WhiteCenteredContainer({
   children,
   span = 8,

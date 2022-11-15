@@ -20,8 +20,8 @@ export const routes = [
   { route: "/profile", element: <Profile /> },
   { route: "/qrcodes", element: <QRCodes /> },
   { route: "/signup", element: <Signup /> },
-  { route: "/supplier/dashboard", element: <Dashboard /> },
-  { route: "/supplier/events", element: <Events /> },
-  { route: "/supplire/login", element: <Login /> },
-  { route: "/supplier/scanner", element: <Scanner /> },
+  { route: "/admin/dashboard", element: <Dashboard /> },
+  { route: "/admin/events", element: <Events /> },
+  { route: "/admin/login", element: <Login /> },
+  { route: "/admin/scanner", element: <Scanner /> },
 ];
