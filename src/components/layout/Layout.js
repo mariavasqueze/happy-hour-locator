@@ -6,6 +6,8 @@ import Brand from "./Brand";
 import Avatar from "./Avatar";
 import Menu from "./Menu";
 
+import "./style.css";
+
 export default function Layout({ children }) {
   return (
     <Container fluid id="mainContainer">
