@@ -38,13 +38,17 @@ const events = [
 ];
 
 export default function Dashboard() {
+  const scannedCode = (code) => {
+    console.log(code);
+  };
+
   return (
     <WhiteCenteredContainer>
       <h2>Events</h2>
 
       <Row>
         {events.map((event) => (
-          <Card key={event.eventId} event={event} />
+          <Card key={event.eventId} event={event} scannedCode={scannedCode} />
         ))}
       </Row>
     </WhiteCenteredContainer>
