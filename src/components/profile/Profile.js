@@ -1,10 +1,6 @@
 import React from "react";
 
-import Image from "react-bootstrap/Image";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import { Row, Col, Button, Form, Image } from "react-bootstrap";
 
 import "./style.css";
 
@@ -24,7 +20,7 @@ export default function Profile() {
 						</Col>
 						<Col xs={12} md={8}>
 							<Form.Control
-								className="input"
+								className="inputForm"
 								type="text"
 								placeholder="Juanito"
 							/>
@@ -36,7 +32,7 @@ export default function Profile() {
 						</Col>
 						<Col xs={12} md={8}>
 							<Form.Control
-								className="input"
+								className="inputForm"
 								type="email"
 								placeholder="juanito@gmail.com"
 							/>
@@ -48,7 +44,7 @@ export default function Profile() {
 						</Col>
 						<Col xs={12} md={8}>
 							<Form.Control
-								className="input mb-5"
+								className="inputForm mb-5"
 								type="password"
 								placeholder="******"
 							/>
@@ -70,7 +66,7 @@ export default function Profile() {
 						<Col>
 							<Form.Label className="paymentTitle">Payment Method</Form.Label>
 							<Form.Control
-								className="input mb-3"
+								className="inputForm mb-3"
 								id="paymentInput"
 								type="text"
 								placeholder="XX4242"
