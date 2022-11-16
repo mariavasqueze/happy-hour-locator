@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Card as CardBS, Button } from "react-bootstrap";
 import QRCode from "react-qr-code";
+import { BrowserQRCodeReader } from "@zxing/library";
 
 const { Body, Text } = CardBS;
 
-export default function Card({ event }) {
+const codeReader = new BrowserQRCodeReader();
+let selectedDeviceId;
+
+codeReader
+  .getVideoInputDevices()
+  .then(
+    (videoInputDevices) => (selectedDeviceId = videoInputDevices[0].deviceId)
+  );
+
+export default function Card({ event, scannedCode }) {
+  const [readingCode, setReadingCode] = useState(false);
+
+  const decodeOnce = () => {
+    codeReader
+      .decodeFromInputVideoDevice(selectedDeviceId, "video")
+      .then((result) => {
+        scannedCode(result.text);
+        codeReader.reset();
+        setReadingCode(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        codeReader.reset();
+        setReadingCode(false);
+      });
+  };
+
+  useEffect(() => {
+    if (readingCode) decodeOnce();
+  }, [readingCode]);
+
   return (
     <Col xs={12} className="cardContainer">
       <Row>
@@ -43,9 +74,16 @@ export default function Card({ event }) {
             </Col>
 
             <Col xs={12} sm={6}>
-              <Button variant="primary" id="btnScanCode">
+              <Button
+                variant="primary"
+                id="btnScanCode"
+                onClick={() => setReadingCode(true)}
+              >
                 Scan QR Code
               </Button>
+              {readingCode && (
+                <video id="video" width="300" height="200"></video>
+              )}
             </Col>
           </Row>
 
