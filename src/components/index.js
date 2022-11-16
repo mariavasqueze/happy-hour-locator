@@ -9,7 +9,6 @@ import Signup from "./signup/Signup";
 import Dashboard from "./Supplier/dashboard/Dashboard";
 import Events from "./Supplier/events/Events";
 import Login from "./Supplier/login/Login";
-import Scanner from "./Supplier/scanner/Scanner";
 
 export {
   About,
@@ -23,5 +22,4 @@ export {
   Dashboard,
   Events,
   Login,
-  Scanner,
 };

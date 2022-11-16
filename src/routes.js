@@ -8,7 +8,6 @@ import {
   Login,
   Profile,
   QRCodes,
-  Scanner,
   Signup,
 } from "./components";
 
@@ -23,5 +22,4 @@ export const routes = [
   { route: "/admin/dashboard", element: <Dashboard /> },
   { route: "/admin/events", element: <Events /> },
   { route: "/admin/login", element: <Login /> },
-  { route: "/admin/scanner", element: <Scanner /> },
 ];
