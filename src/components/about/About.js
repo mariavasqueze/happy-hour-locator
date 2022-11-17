@@ -7,7 +7,7 @@ import "./style.css";
 
 export default function About() {
   return (
-    <WhiteCenteredContainer>
+    <div className="bground">
       <Row>
         <Col xs={12} sm={12}>
           <h2>A little about Software Inc.</h2>					
@@ -46,6 +46,6 @@ export default function About() {
 				</Col>
       </Row>
       
-    </WhiteCenteredContainer>
+    </div>
   );
 }
