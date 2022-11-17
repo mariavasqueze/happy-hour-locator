@@ -1,15 +1,14 @@
 import React from "react";
-
 import { Row, Col, Button, Form, Image } from "react-bootstrap";
-
-import "./style.css";
 
 import { WhiteCenteredContainer } from "../common";
 import profileImg from "../../images/myProfileImg.png";
 
+import "./style.css";
+
 export default function Profile() {
 	return (
-		<WhiteCenteredContainer>
+		<WhiteCenteredContainer className="special">
 			<h2 className="m-3">My Profile</h2>
 			<section id="profile info">
 				<Image className="profileImg m-3" rounded src={profileImg}></Image>

@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 import { WhiteCenteredContainer } from "../common";
 
@@ -7,17 +8,21 @@ import "./style.css";
 
 export default function Signin() {
 	return (
-		<WhiteCenteredContainer>
-			<h3>Sign-in to see locations</h3>
-			<Form>
-				<Form.Control className="input" type="text" placeholder="Enter Username" />
+		<WhiteCenteredContainer id="specialWhiteCont">
+			<h3 id="signinTitle">Sign-in here:</h3>
+			<Form id="signinForm">
 				<Form.Control
-					className="input mb-5"
+					className="inputForm"
+					type="text"
+					placeholder="Enter Username"
+				/>
+				<Form.Control
+					className="inputForm"
 					type="password"
 					placeholder="Enter Password"
 				/>
 
-				<Form.Group className="mb-3" controlId="formBasicCheckbox">
+				<div id="signinBtns">
 					<Button
 						className="purpleBtn"
 						variant="primary"
@@ -27,14 +32,16 @@ export default function Signin() {
 						Sign In
 					</Button>
 					<Button
+						id="googleBtn"
 						className="purpleBtn"
 						variant="primary"
 						size="lg"
 						type="submit"
 					>
 						Google Sign In
-					</Button>
-				</Form.Group>
+					</Button>	
+					<NavLink id="linktoAdmin" to="/admin/login">Do you represent a Location? Go to Site!</NavLink>
+				</div>
 			</Form>
 		</WhiteCenteredContainer>
 	);

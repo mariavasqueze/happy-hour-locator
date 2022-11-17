@@ -1,6 +1,83 @@
+#contentContainer.container-fluid {
+    padding: 0px;
+    margin: 0px;
+}
+/* Div container */
+#divContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 70px 58px 20px 98px;
+}
 /* Left side */
-.leftColumn {
-    background-color: #FFF;
-
+#leftColumn {
+    background-color: #FCFFFC;
+    min-height: 550px;
+    width: 50%;
+}
+#leftColumn.col {
+    padding: 0px;
 }
 
+.mainTitle {
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 100px;
+    letter-spacing: 0.5px;
+    color: #001B3E;
+    margin-bottom: 38px;
+
+}
+.second {
+    margin-bottom: 36px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 49px;
+    color: #7C90A0;
+    margin-bottom: 40px;
+    /* max-width: 90%; */
+}
+
+.third {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 44px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+#specialBtn {
+    font-size: 20px;
+    background-color: #7291E3;
+    border-color: #7291E3;
+    border-radius: 24px;
+    padding: 12px 45px;
+    margin-left: -5px;
+}
+
+#specialBtn:hover {
+   background-color: #7290e3a7;
+   border-color: #7290e3a7;
+   box-shadow: 1px 2px 1px#7291E3;
+}
+
+.homePageImg {
+    width: 100%;
+}
+
+/* Right side */
+#rightColumn {
+    display: flex;
+    background-image: url("../../images/mapImg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 550px;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
