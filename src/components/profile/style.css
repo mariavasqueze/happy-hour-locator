@@ -9,6 +9,7 @@
     font-size: 1.5em;
 }
 input.inputForm {
+    margin-top: -1px;
     font-size: 1.2em;
     min-height: 55px;
     border-radius: 24px;  
@@ -16,11 +17,10 @@ input.inputForm {
 
 /* Purple Button  */
 button.purpleBtn {
-     background-color: #7291E3;
-    /* border-color: #7291E3; */
+    background-color: #7291E3;
+    border-color: #7291E3;
     border-radius: 24px;
     padding: 10px 30px;
-    --bs-btn-border-radius: 24px;
 
 }
 button.purpleBtn:hover {
