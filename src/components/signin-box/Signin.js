@@ -8,7 +8,7 @@ import "./style.css";
 
 export default function Signin() {
 	return (
-		<WhiteCenteredContainer id="specialWhiteCont">
+		<WhiteCenteredContainer>
 			<h3 id="signinTitle">Sign-in here:</h3>
 			<Form id="signinForm">
 				<Form.Control

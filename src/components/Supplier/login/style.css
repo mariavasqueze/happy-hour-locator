@@ -1,3 +1,31 @@
-#wrapper {
+/* background div holder */
+.loginBack {
     background-image: url("../../../images/adminLoginBack.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 780px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* special white container  */
+.specialWhiteContainer {
+    border-radius: 20px;
+    background-color: #edf1f0;
+    min-height: 350px;
+    padding: 25px 55px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 625px;
+}
+
+/* Forms form */
+#adminLoginForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 0px; 
 }
