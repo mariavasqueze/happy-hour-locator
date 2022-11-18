@@ -8,7 +8,9 @@ export default function Container({ children, noFluid = false, className }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`container${noFluid ? "" : "-fluid"} ${className}`}
+      className={`container${noFluid ? "" : "-fluid"} ${
+        className ? className : ""
+      }`}
     >
       {children}
     </motion.div>
