@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     
 }
 .label {
@@ -43,7 +43,6 @@ button.purpleBtn:hover {
     background-color: #001B3E;
     border-color: #001B3E;
     border-color: #001B3E;
-    margin-left: 20px;
 }
 #googleBtn:hover {
     background-color: #001b3ea2;
@@ -55,6 +54,7 @@ button.purpleBtn:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
     margin-top: 20px;
 }
 

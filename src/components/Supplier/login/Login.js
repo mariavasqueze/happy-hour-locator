@@ -2,8 +2,6 @@ import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-import { WhiteCenteredContainer } from "../../common";
-
 import "./style.css";
 
 export default function Login() {
