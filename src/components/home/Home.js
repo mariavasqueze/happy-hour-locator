@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <Container>
       <Row>
-        <Col id="leftColumn">
+        <Col xs={12} sm={6} id="leftColumn" className="p-0">
           <div id="divContainer">
             <h1 className="mainTitle">Happy hour locator</h1>
             <h2 className="second">
@@ -27,7 +27,7 @@ export default function Home() {
           </div>
           <Image className="homePageImg" rounded src={homePageImg}></Image>
         </Col>
-        <Col id="rightColumn">
+        <Col xs={12} sm={6} id="rightColumn">
           <Signin></Signin>
         </Col>
       </Row>
