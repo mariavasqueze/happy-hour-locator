@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+  Fragment,
+} from "react";
 
 import { Row, Col, Image, Button } from "react-bootstrap";
 import {
@@ -8,11 +14,13 @@ import {
   Marker,
 } from "@react-google-maps/api";
 
+import mainContext from "../../context";
 import { Container } from "../common";
 import Card from "./Card";
 
 import "./style.css";
 
+//TODO: change to api call
 const locations = [
   {
     locationName: "Rogue",
@@ -28,6 +36,7 @@ const locations = [
         eventDateFrom: new Date(2022, 11, 13, 14, 0, 0, 0),
         eventDateTo: new Date(2022, 11, 13, 18, 0, 0, 0),
         eventDescription: "Opening ceremony",
+        registered: true,
       },
     ],
   },
@@ -51,8 +60,11 @@ const locations = [
 ];
 
 export default function Locations() {
+  const { isLogged } = useContext(mainContext);
+
   const [center, setCenter] = useState({ lat: 49.28189, lng: -123.11755 });
   const [selectedLocation, setSelectedLocation] = useState();
+  const [selectedLocationDetails, setSelectedLocationDetails] = useState();
   const [map, setMap] = useState(null);
   const [bounded, setBounded] = useState(false);
 
@@ -92,13 +104,31 @@ export default function Locations() {
     }
   }, [map]);
 
+  const registerToEventHandler = (event) => {
+    //TODO: request new code for event
+  };
+
   return (
     <Container className="backgroundLocation">
       <Row>
         <Col xs={12} sm={4}>
-          {locations.map((location) => (
-            <Card key={location.locationName} location={location} />
-          ))}
+          {selectedLocationDetails ? (
+            <Card
+              key={selectedLocationDetails.locationName}
+              location={selectedLocationDetails}
+              onReturnClick={() => setSelectedLocationDetails(undefined)}
+              onRegisterEventClick={(event) => registerToEventHandler(event)}
+              showEvents
+            />
+          ) : (
+            locations.map((location) => (
+              <Card
+                key={location.locationName}
+                location={location}
+                onSeeEventsClick={() => setSelectedLocationDetails(location)}
+              />
+            ))
+          )}
         </Col>
 
         <Col xs={12} sm={8}>
@@ -134,9 +164,24 @@ export default function Locations() {
                           <Image src={location.image} />
                           <h5>{location.locationName}</h5>
                           <div>{location.address}</div>
-                          <Button className="purpleBtn" variant="primary">
-                            See Events
-                          </Button>
+                          <br />
+                          {isLogged && (
+                            <Fragment>
+                              <h6>Happy Hour Description</h6>
+                              <div>
+                                <b>{location.happyHourDescription}</b>
+                              </div>
+                              <Button
+                                className="purpleBtn"
+                                variant="primary"
+                                onClick={() =>
+                                  setSelectedLocationDetails(location)
+                                }
+                              >
+                                See Events
+                              </Button>
+                            </Fragment>
+                          )}
                         </div>
                       </InfoWindow>
                     )}
