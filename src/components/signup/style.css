@@ -1,4 +1,26 @@
+.signUpBack {
+    background-image: url("../../images/SignUp.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 780px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
+/* special white container  */
+.specialWhiteContainer {
+    border-radius: 20px;
+    background-color: #edf1f0;
+    min-height: 350px;
+    padding: 25px 55px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 625px;
+    opacity: .98;
+}
 h2{
     color: #001B3E;
 }
@@ -30,6 +52,7 @@ input.inputForm {
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
+    margin-left: -45px;
     text-align: center;
 }
 #signupBtn:hover {
