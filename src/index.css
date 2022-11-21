@@ -4,8 +4,8 @@ body {
   font-family: "Fira Sans", sans-serif;
 } */
 
-.container,
-.container .row {
+.container-fluid,
+.container-fluid .row {
   --bs-gutter-x: 0;
 }
 
