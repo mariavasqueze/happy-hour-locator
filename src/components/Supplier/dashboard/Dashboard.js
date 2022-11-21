@@ -6,6 +6,7 @@ import Card from "./Card";
 
 import "./style.css";
 
+//TODO: change to api call
 const events = [
   {
     eventId: 1,

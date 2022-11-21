@@ -10,8 +10,12 @@ div.backgroundLocation .row {
   height: 100%;
 }
 
-div.backgroundLocation .row > :first-child {
+div.backgroundLocation > .row > :first-child {
   overflow-y: auto;
+}
+
+div.backgroundLocation > .row > :nth-child(2) {
+  min-height: 800px;
 }
 
 .cardContainerLocation {
