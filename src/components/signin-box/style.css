@@ -1,73 +1,74 @@
 /* Signin title */
 #signinTitle {
-  font-size: 32px;
-  font-style: bold;
-  text-align: center;
-  margin: 20px 0px 25px 0px;
+    font-size: 32px;
+    font-style: bold;
+    text-align: center;
+    margin: 20px 0px 25px 0px;
 }
 
 /* Forms form */
 #signinForm {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 20px;
+    
 }
 .label {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 input.inputForm {
-  font-size: 1.2em;
-  min-height: 55px;
-  max-width: 355px;
-  border-radius: 24px;
-  margin: 20px 0px;
+    font-size: 1.2em;
+    min-height: 55px;
+    max-width: 355px;
+    border-radius: 24px;
+    margin: 20px 0px;
 }
 
 /* Purple Button  */
 button.purpleBtn {
-  background-color: #7291e3;
-  border-color: #7291e3;
-  border-radius: 24px;
-  padding: 10px 30px;
-  margin-top: 10px;
+     background-color: #7291E3;
+    border-color: #7291E3;
+    border-radius: 24px;
+    padding: 10px 30px;
+    margin-top: 10px;
 }
 button.purpleBtn:hover {
-  background-color: #7290e3a7;
-  border-color: #7290e3a7;
-  box-shadow: 1px 2px 1px#7291E3;
+    background-color: #7290e3a7;
+    border-color: #7290e3a7;
+    box-shadow: 1px 2px 1px#7291E3;
 }
 
 #googleBtn {
-  background-color: #001b3e;
-  border-color: #001b3e;
-  border-color: #001b3e;
-  margin-left: 20px;
+    background-color: #001B3E;
+    border-color: #001B3E;
+    border-color: #001B3E;
 }
 #googleBtn:hover {
-  background-color: #001b3ea2;
-  box-shadow: 1px 2px 1px#001b3ea2;
+    background-color: #001b3ea2;
+    box-shadow: 1px 2px 1px#001b3ea2;
 }
 
 /* Buttons form group */
 #signinBtns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 #specialWhiteCont {
-  padding: 0px 0px;
+    padding: 0px 0px;
 }
 
 #linktoAdmin {
-  text-decoration: none;
-  color: #000;
-  font-size: 16px;
-  margin-top: 30px;
-}
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    margin-top: 30px;
+  }
 
-#linktoAdmin:hover {
-  color: #7291e3;
-}
+  #linktoAdmin:hover {
+    color: #7291E3;
+  }
