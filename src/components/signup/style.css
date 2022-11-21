@@ -1,0 +1,40 @@
+
+h2{
+    color: #001B3E;
+}
+
+/* Forms form */
+#signinForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 20px;
+    
+}
+
+input.inputForm {
+    font-size: 1.2em;
+    min-height: 55px;
+    max-width: 355px;
+    border-radius: 24px;
+    margin: 20px 0px;
+}
+
+
+#signupBtn {
+    background-color: #001B3E;
+    border-color: #001B3E;
+    border-color: #001B3E;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+#signupBtn:hover {
+    background-color: #001b3ea2;
+    box-shadow: 1px 2px 1px#001b3ea2;
+}
+
+
