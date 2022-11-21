@@ -1,0 +1,40 @@
+div.backgroundLocation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: white;
+}
+
+div.backgroundLocation .row {
+  height: 100%;
+}
+
+div.backgroundLocation .row > :first-child {
+  overflow-y: auto;
+}
+
+.cardContainerLocation {
+  border: none;
+  box-shadow: none;
+  padding: 15px;
+}
+
+.cardContainerLocation .card,
+.cardContainerLocation .card > div,
+.cardContainerLocation .card > div > div {
+  padding: 0;
+}
+
+.cardContainerLocation .card img {
+  height: 198px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.markerStyle img {
+  width: 200px;
+  display: block;
+}
