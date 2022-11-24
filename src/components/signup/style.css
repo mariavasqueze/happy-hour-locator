@@ -21,17 +21,16 @@
     max-width: 625px;
     opacity: .98;
 }
-h2{
+/* h2{
     color: #001B3E;
-}
+} */
 
 /* Forms form */
 #signinForm {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-bottom: 20px;
-    
+    padding-bottom: 20px;   
 }
 
 input.inputForm {
@@ -42,7 +41,6 @@ input.inputForm {
     margin: 20px 0px;
 }
 
-
 #signupBtn {
     background-color: #001B3E;
     border-color: #001B3E;
@@ -50,9 +48,8 @@ input.inputForm {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+
     margin-top: 20px;
-    margin-left: -45px;
     text-align: center;
 }
 #signupBtn:hover {
