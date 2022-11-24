@@ -3,16 +3,17 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { NavDropdown, Image } from "react-bootstrap";
 
-import mainContext from "../../context";
+import { UserContext } from "../../context";
+
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const { Item, Divider } = NavDropdown;
 
 export default function Avatar() {
-  const { username, imageUrl, isLogged, logout, login } =
-    useContext(mainContext);
+  const { currentUser } = useContext(UserContext);
 
   const items = () => {
-    if (isLogged) {
+    if (currentUser) {
       return (
         <>
           <NavLink className="dropdown-item" to="/profile">
@@ -22,11 +23,17 @@ export default function Avatar() {
             My QR Codes
           </NavLink>
           <Divider />
-          <Item onClick={() => logout()}>Log Out</Item>
+          <Item onClick={signOutUser}>Log Out</Item>
         </>
       );
     } else {
-      return <Item onClick={() => login()}>Log In</Item>;
+      return (
+        <Item>
+          <NavLink to="/">
+            Sign In
+          </NavLink>
+        </Item>
+      );
     }
   };
 
@@ -34,13 +41,8 @@ export default function Avatar() {
     <NavDropdown
       title={
         <>
-          <Image
-            alt="avatar"
-            src={imageUrl ? imageUrl : "images/avatar.png"}
-            roundedCircle
-          />
-
-          {username}
+          <Image alt="avatar" src={currentUser ? "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060" : "images/avatar.png"} roundedCircle />
+          {currentUser ? 'Person' : 'No Person'}
         </>
       }
       id="nav-dropdown"

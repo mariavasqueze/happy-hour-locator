@@ -14,13 +14,15 @@ import {
   Marker,
 } from "@react-google-maps/api";
 
-import mainContext from "../../context";
+import { UserContext } from "../../context"; //Maria
+
+// import mainContext from "../../context";
 import { Container } from "../common";
 import Card from "./Card";
 
 import "./style.css";
 
-//TODO: change to api call
+// //TODO: change to api call
 const locations = [
   {
     locationName: "Rogue",
@@ -60,7 +62,8 @@ const locations = [
 ];
 
 export default function Locations() {
-  const { isLogged } = useContext(mainContext);
+  // const { isLogged } = useContext(mainContext);
+const { currentUser } = useContext(UserContext); //Mariaa
 
   const [center, setCenter] = useState({ lat: 49.28189, lng: -123.11755 });
   const [selectedLocation, setSelectedLocation] = useState();
@@ -165,7 +168,7 @@ export default function Locations() {
                           <h5>{location.locationName}</h5>
                           <div>{location.address}</div>
                           <br />
-                          {isLogged && (
+                          {currentUser && (
                             <Fragment>
                               <h6>Happy Hour Description</h6>
                               <div>

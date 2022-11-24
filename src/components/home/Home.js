@@ -6,6 +6,7 @@ import { Container } from "../common";
 import Signin from "../signin-box/Signin";
 import Image from "react-bootstrap/Image";
 
+import { WhiteCenteredContainer } from "../common";
 import homePageImg from "../../images/beerWave.png";
 
 import "./style.css";
@@ -27,8 +28,14 @@ export default function Home() {
           </div>
           <Image className="homePageImg" rounded src={homePageImg}></Image>
         </Col>
-        <Col xs={12} sm={6} id="rightColumn">
-          <Signin></Signin>
+        <Col xs={12} sm={6} id="rightColumn" className="text-center">
+        <WhiteCenteredContainer>
+        <h3 id="signinTitle">Sign-in here:</h3>
+        <Signin></Signin>
+        <NavLink id="linktoAdmin" to="/admin/login">
+            Do you represent a Location? Go to Site!
+          </NavLink>
+        </WhiteCenteredContainer>
         </Col>
       </Row>
     </Container>

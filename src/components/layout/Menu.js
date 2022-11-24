@@ -10,7 +10,7 @@ const menu = [
   { route: "/locations", text: "Locations" },
   { route: "/about", text: "About Us" },
   { route: "/faq", text: "FAQ" },
-  { route: "/signup", text: "Sign-Up" },
+  // { route: "/signup", text: "Sign-Up" },
 ];
 
 export default function Menu() {
