@@ -18,6 +18,7 @@ import {
   writeBatch,
   query,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -31,7 +32,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 // instance of Google provider object
 const provider = new GoogleAuthProvider();
@@ -124,36 +125,46 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
-////////////////////////////////////////////////////////////////////////////////////////
-//add elements to collection
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// General function to save multiple records
+const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db); //let's you add operations to it, and at the end begin transaction
 
   objectsToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.locationName.toLowerCase()); //change title
+    const docRef = doc(collectionRef, object[documentKey].toLowerCase()); //change title
     batch.set(docRef, object);
   });
 
   await batch.commit();
-  console.log("done");
 };
 
-// get the data from firebase
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "locations");
+// General function to get the data from firebase
+const getDocuments = async (collectionName) => {
+  const collectionRef = collection(db, collectionName);
+  const querySnapshot = await getDocs(query(collectionRef));
+  const documentMap = querySnapshot.docs.map((doc) => doc.data());
+  console.log(documentMap);
 
-  const q = query(collectionRef);
+  return documentMap;
+};
 
-  const querySnapshot = await getDocs(q);
-  const locationsMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { locationName, events } = docSnapshot.data();
-    acc[locationName.toLowerCase()] = events;
-    return acc;
-  }, {});
+const deleteDocument = async (collectionName, documentKey) => {
+  const collectionRef = collection(db, collectionName);
+  const docRef = doc(collectionRef, documentKey);
+  deleteDoc(docRef);
+};
 
-  return locationsMap;
+//** Functions for documents */
+export const getLocations = async () => {
+  return getDocuments("locations");
+};
+
+export const addLocations = async (documents = []) => {
+  return addDocuments("locations", "locationName", documents);
+};
+
+export const deleteLocation = async (document = {}) => {
+  return deleteDocument("locations", document.locationName);
 };
