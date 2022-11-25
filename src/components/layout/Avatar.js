@@ -5,12 +5,10 @@ import { NavDropdown, Image } from "react-bootstrap";
 
 import { UserContext } from "../../context";
 
-import { signOutUser } from "../../utils/firebase/firebase.utils";
-
 const { Item, Divider } = NavDropdown;
 
 export default function Avatar() {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, signOutUser } = useContext(UserContext);
 
   const items = () => {
     if (currentUser) {
@@ -29,9 +27,7 @@ export default function Avatar() {
     } else {
       return (
         <Item>
-          <NavLink to="/">
-            Sign In
-          </NavLink>
+          <NavLink to="/">Sign In</NavLink>
         </Item>
       );
     }
@@ -41,8 +37,16 @@ export default function Avatar() {
     <NavDropdown
       title={
         <>
-          <Image alt="avatar" src={currentUser ? "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060" : "images/avatar.png"} roundedCircle />
-          {currentUser ? 'Person' : 'No Person'}
+          <Image
+            alt="avatar"
+            src={
+              currentUser
+                ? "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060"
+                : "images/avatar.png"
+            }
+            roundedCircle
+          />
+          {currentUser ? "Person" : "No Person"}
         </>
       }
       id="nav-dropdown"
