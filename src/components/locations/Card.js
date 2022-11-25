@@ -3,8 +3,7 @@ import React, { Fragment, useContext } from "react";
 import { Col, Row, Card as CardBS, Button } from "react-bootstrap";
 
 import { Container } from "../common";
-// import mainContext from "../../context";
-import { UserContext } from "../../context"; 
+import { UserContext } from "../../context";
 
 const { Img, Body, Text } = CardBS;
 
@@ -15,8 +14,8 @@ export default function Card({
   onSeeEventsClick,
   onRegisterEventClick,
 }) {
-  // const { isLogged } = useContext(mainContext);
-  const { currentUser } = useContext(UserContext); //Mariaa
+  const { currentUser } = useContext(UserContext);
+
   return (
     <Col xs={12} className="cardContainerLocation">
       {onReturnClick && <Button onClick={() => onReturnClick()}>Return</Button>}
@@ -32,7 +31,9 @@ export default function Card({
               <Body>
                 <h4>{location.locationName}</h4>
                 <div>{location.address}</div>
+
                 <br />
+
                 {currentUser && (
                   <Fragment>
                     <h6>Happy Hour Description</h6>
