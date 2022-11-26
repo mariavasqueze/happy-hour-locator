@@ -15,7 +15,7 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser, signOutUser };
-
+  console.log(currentUser);
   //unsubscribe refers to stop listening because the firebase onAuthStateChangedListener is always listening for changes
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {

@@ -11,29 +11,21 @@ export default function Avatar() {
   const { currentUser, signOutUser } = useContext(UserContext);
 
   const items = () => {
-    if (currentUser) {
-      return (
-        <>
-          <NavLink className="dropdown-item" to="/profile">
-            My Profile
-          </NavLink>
-          <NavLink className="dropdown-item" to="/qrcodes">
-            My QR Codes
-          </NavLink>
-          <Divider />
-          <Item onClick={signOutUser}>Log Out</Item>
-        </>
-      );
-    } else {
-      return (
-        <Item>
-          <NavLink to="/">Sign In</NavLink>
-        </Item>
-      );
-    }
+    return (
+      <>
+        <NavLink className="dropdown-item" to="/profile">
+          My Profile
+        </NavLink>
+        <NavLink className="dropdown-item" to="/qrcodes">
+          My QR Codes
+        </NavLink>
+        <Divider />
+        <Item onClick={signOutUser}>Log Out</Item>
+      </>
+    );
   };
 
-  return (
+  return currentUser ? (
     <NavDropdown
       title={
         <>
@@ -46,12 +38,12 @@ export default function Avatar() {
             }
             roundedCircle
           />
-          {currentUser ? "Person" : "No Person"}
+          {currentUser.displayName}
         </>
       }
       id="nav-dropdown"
     >
       {items()}
     </NavDropdown>
-  );
+  ) : null;
 }

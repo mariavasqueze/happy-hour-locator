@@ -53,7 +53,7 @@ export default function Card({
                       <Fragment>
                         <h4>Upcoming Events</h4>
                         {location.events.map((event) => (
-                          <Fragment>
+                          <Fragment key={"event" + event.eventName}>
                             <h6>{event.eventName}</h6>
                             <Text>{event.eventDescription}</Text>
                             <h6>Event Times:</h6>
@@ -62,15 +62,25 @@ export default function Card({
                                 <tr>
                                   <td>From:</td>
                                   <td>
-                                    {event.eventDateFrom.toDateString()},{" "}
-                                    {event.eventDateFrom.toLocaleTimeString()}
+                                    {new Date(
+                                      event.eventDateFrom.seconds * 1000
+                                    ).toDateString()}
+                                    ,{" "}
+                                    {new Date(
+                                      event.eventDateFrom.seconds * 1000
+                                    ).toLocaleTimeString()}
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>To:</td>
                                   <td>
-                                    {event.eventDateTo.toDateString()},{" "}
-                                    {event.eventDateTo.toLocaleTimeString()}
+                                    {new Date(
+                                      event.eventDateTo.seconds * 1000
+                                    ).toDateString()}
+                                    ,{" "}
+                                    {new Date(
+                                      event.eventDateTo.seconds * 1000
+                                    ).toLocaleTimeString()}
                                   </td>
                                 </tr>
                               </tbody>

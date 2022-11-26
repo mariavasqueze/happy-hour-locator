@@ -140,6 +140,12 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
   await batch.commit();
 };
 
+// General function to save one record
+const addUpdateDocument = async (collectionKey, documentKey, object) => {
+  const docRef = doc(db, collectionKey, documentKey);
+  setDoc(docRef, object);
+};
+
 // General function to get the data from firebase
 const getDocuments = async (collectionName) => {
   const collectionRef = collection(db, collectionName);
@@ -150,6 +156,16 @@ const getDocuments = async (collectionName) => {
   return documentMap;
 };
 
+// General function to get one data from firebase
+const getDocument = async (collectionKey, documentKey) => {
+  const docRef = doc(db, collectionKey, documentKey);
+  const docSnap = await getDoc(docRef);
+  console.log(docSnap.data());
+
+  return docSnap.data();
+};
+
+// General function to delete one document
 const deleteDocument = async (collectionName, documentKey) => {
   const collectionRef = collection(db, collectionName);
   const docRef = doc(collectionRef, documentKey);
@@ -161,8 +177,20 @@ export const getLocations = async () => {
   return getDocuments("locations");
 };
 
+export const getLocation = async (documentId = "") => {
+  return getDocument("locations", documentId);
+};
+
+export const addLocation = async (document = {}) => {
+  return addUpdateDocument("locations", document.locationName, document);
+};
+
 export const addLocations = async (documents = []) => {
   return addDocuments("locations", "locationName", documents);
+};
+
+export const putLocation = async (document = {}) => {
+  return addUpdateDocument("locations", document.locationName, document);
 };
 
 export const deleteLocation = async (document = {}) => {
