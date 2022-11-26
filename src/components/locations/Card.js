@@ -86,13 +86,21 @@ export default function Card({
                               </tbody>
                             </table>
 
-                            {onRegisterEventClick && !event.registered && (
+                            {onRegisterEventClick && !event.registered ? (
                               <Button
                                 variant="primary"
                                 className="purpleBtn"
                                 onClick={() => onRegisterEventClick()}
                               >
                                 Register to Event
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="secondary"
+                                className="purpleBtn"
+                                disabled
+                              >
+                                Registered
                               </Button>
                             )}
                           </Fragment>
