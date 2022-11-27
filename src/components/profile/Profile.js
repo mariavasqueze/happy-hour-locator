@@ -7,15 +7,29 @@ import { UserContext, FirebaseContext } from "../../context";
 import "./style.css";
 
 export default function Profile() {
-  const { currentUser } = useContext(UserContext);
-  const { putUser, putUserPassword } = useContext(FirebaseContext);
+  const { currentUser, currentUserAdditionals } = useContext(UserContext);
+  const { putUser, putUserPassword, putAdditional } =
+    useContext(FirebaseContext);
   const [userData, setUserData] = useState();
+  const [userDataAdditionals, setUserDataAdditionals] = useState();
 
   useEffect(() => {
     if (currentUser) {
-      setUserData(currentUser);
+      setUserData({
+        ...currentUser,
+        card: currentUser.additionals?.data?.card,
+      });
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUserAdditionals) {
+      setUserDataAdditionals({
+        ...currentUserAdditionals,
+        card: currentUserAdditionals?.data?.card,
+      });
+    }
+  }, [currentUserAdditionals]);
 
   const getPhoto = () => {
     if (!currentUser) return "images/avatar.png";
@@ -30,31 +44,40 @@ export default function Profile() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const submitHandler = () => {
-    putUser(currentUser, {
+  const onInputChangeHandlerAdditionals = (event) => {
+    const { name, value } = event.target;
+    setUserDataAdditionals({ ...userDataAdditionals, [name]: value });
+  };
+
+  const submitHandler = async () => {
+    await putUser(currentUser, {
+      photoURL: userData?.photoURL,
       displayName: userData?.displayName,
       email: userData?.email,
     });
 
     if (userData.password) {
-      putUserPassword(currentUser, userData.password);
+      await putUserPassword(currentUser, userData.password);
     }
 
     alert("User data updated!");
+    window.location.reload();
   };
 
-  const submitCardHandler = () => {
-    putUser(currentUser, {
-      card: userData?.card
+  const submitCardHandler = async () => {
+    await putAdditional(userDataAdditionals.id, {
+      ...userDataAdditionals.data,
+      card: userDataAdditionals?.card
         ? "XX" +
-          userData?.card.substring(
-            userData?.card.length - 3,
-            userData?.card.length
+          userDataAdditionals?.card.substring(
+            userDataAdditionals?.card.length - 4,
+            userDataAdditionals?.card.length
           )
         : "",
     });
 
     alert("User card data updated!");
+    window.location.reload();
   };
 
   return (
@@ -70,6 +93,23 @@ export default function Profile() {
         ></Image>
 
         <Form>
+          <Row className="m-3">
+            <Col>
+              <Form.Label className="label">Photo URL</Form.Label>
+            </Col>
+
+            <Col xs={12} md={8}>
+              <Form.Control
+                className="inputForm"
+                type="text"
+                placeholder=""
+                name="photoURL"
+                value={userData?.photoURL ?? ""}
+                onChange={onInputChangeHandler}
+              />
+            </Col>
+          </Row>
+
           <Row className="m-3">
             <Col>
               <Form.Label className="label">Name</Form.Label>
@@ -131,41 +171,43 @@ export default function Profile() {
         </Form>
       </section>
 
-      <section id="paymentInfo">
-        <Form>
-          <Row className="m-3">
-            <Col>
-              <Form.Label className="paymentTitle">Payment Method</Form.Label>
-              <Form.Control
-                className="inputForm mb-3"
-                id="paymentInput"
-                type="text"
-                placeholder="XX4242"
-                name="card"
-                value={userData?.card ?? ""}
-                onChange={onInputChangeHandler}
-              />
-            </Col>
-          </Row>
-          <Row className="m-3">
-            <Col xs={12} md={8}>
-              <Button
-                className="purpleBtn"
-                variant="primary"
-                size="lg"
-                onClick={() => submitCardHandler()}
-              >
-                Change Card
-              </Button>
-            </Col>
-          </Row>
-          <Row className="m-3">
-            <Form.Text className="text-muted m-2">
-              Delete Account? - Please send us a request
-            </Form.Text>
-          </Row>
-        </Form>
-      </section>
+      {currentUserAdditionals?.data?.userType === 0 && (
+        <section id="paymentInfo">
+          <Form>
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="paymentTitle">Payment Method</Form.Label>
+                <Form.Control
+                  className="inputForm mb-3"
+                  id="paymentInput"
+                  type="text"
+                  placeholder="XX4242"
+                  name="card"
+                  value={userDataAdditionals?.card ?? ""}
+                  onChange={onInputChangeHandlerAdditionals}
+                />
+              </Col>
+            </Row>
+            <Row className="m-3">
+              <Col xs={12} md={8}>
+                <Button
+                  className="purpleBtn"
+                  variant="primary"
+                  size="lg"
+                  onClick={() => submitCardHandler()}
+                >
+                  Change Card
+                </Button>
+              </Col>
+            </Row>
+            <Row className="m-3">
+              <Form.Text className="text-muted m-2">
+                Delete Account? - Please send us a request
+              </Form.Text>
+            </Row>
+          </Form>
+        </section>
+      )}
     </WhiteCenteredContainer>
   );
 }

@@ -7,6 +7,7 @@ import {
   deleteCode,
   putUser,
   putUserPassword,
+  putAdditional,
 } from "../utils/firebase/firebase.utils.js";
 
 export const FirebaseContext = createContext();
@@ -21,6 +22,7 @@ export const FirebaseProvider = ({ children }) => {
         deleteCode,
         putUser,
         putUserPassword,
+        putAdditional,
       }}
     >
       {children}

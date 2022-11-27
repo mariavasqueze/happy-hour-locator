@@ -22,6 +22,7 @@ import {
   getDocs,
   deleteDoc,
   addDoc,
+  where,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -53,7 +54,8 @@ export const db = getFirestore();
 // add user to database in users collection:
 export const createUserDocumentFromAuth = async (
   userAuth,
-  addditionalInformation = {}
+  addditionalInformation = {},
+  userType = 0
 ) => {
   if (!userAuth) return;
 
@@ -73,8 +75,12 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...addditionalInformation,
       });
+
+      await addAdditional(userSnapshot.id, userType);
+      // const addiRef = collection(db, "usersAdditionals");
+      // await addDoc(addiRef, { uid: userSnapshot.id, card: "", userType });
     } catch (error) {
-      console.log("Error creating the user!", error.message);
+      // console.log("Error creating the user!", error.message);
     }
   }
   return userDocRef;
@@ -156,9 +162,11 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
  * @returns new object in db
  */
 const addUpdateDocument = async (collectionKey, object, documentKey) => {
+  console.log(documentKey, object);
   let docRef = null;
   if (documentKey) {
     docRef = doc(db, collectionKey, documentKey);
+    console.log(docRef);
     await setDoc(docRef, object);
   } else {
     docRef = collection(db, collectionKey);
@@ -169,16 +177,25 @@ const addUpdateDocument = async (collectionKey, object, documentKey) => {
 /**
  * General function to get the data from firebase
  * @param {string} collectionName
+ * @param {array} queries
  * @returns array of objects in db
  */
-const getDocuments = async (collectionName) => {
+const getDocuments = async (collectionName, queries = []) => {
   const collectionRef = collection(db, collectionName);
-  const querySnapshot = await getDocs(query(collectionRef));
+
+  let q;
+
+  if (queries.length) {
+    q = query(collectionRef, ...queries.map((filter) => where(...filter)));
+  } else {
+    q = query(collectionRef);
+  }
+
+  const querySnapshot = await getDocs(q);
   const documentMap = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     data: doc.data(),
   }));
-  console.log(documentMap);
 
   return documentMap;
 };
@@ -236,8 +253,8 @@ export const deleteLocation = async (id) => {
 };
 
 // Codes
-export const getCodes = async () => {
-  return getDocuments("codes");
+export const getCodes = async (queries = []) => {
+  return getDocuments("codes", queries);
 };
 
 export const getCode = async (documentId = "") => {
@@ -263,4 +280,25 @@ export const putUser = async (currentUser, document = {}) => {
 
 export const putUserPassword = async (currentUser, document = {}) => {
   return updatePassword(currentUser, document);
+};
+
+// User additionals
+export const addAdditional = async (uid, userType = 0) => {
+  return addUpdateDocument("usersAdditionals", {
+    uid,
+    card: "",
+    userType,
+  });
+};
+
+export const putAdditional = async (id, document = {}) => {
+  return addUpdateDocument("usersAdditionals", document, id);
+};
+
+export const getAdditional = async (queries = []) => {
+  return getDocuments("usersAdditionals", queries);
+};
+
+export const deleteAdditional = async (id) => {
+  return deleteDocument("usersAdditionals", id);
 };
