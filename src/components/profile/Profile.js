@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Form, Image } from "react-bootstrap";
 
 import { WhiteCenteredContainer } from "../common";
-import { UserContext } from "../../context";
+import { UserContext, FirebaseContext } from "../../context";
 
 import "./style.css";
 
 export default function Profile() {
   const { currentUser } = useContext(UserContext);
+  const { putUser, putUserPassword } = useContext(FirebaseContext);
   const [userData, setUserData] = useState();
 
   useEffect(() => {
@@ -27,6 +28,33 @@ export default function Profile() {
   const onInputChangeHandler = (event) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const submitHandler = () => {
+    putUser(currentUser, {
+      displayName: userData?.displayName,
+      email: userData?.email,
+    });
+
+    if (userData.password) {
+      putUserPassword(currentUser, userData.password);
+    }
+
+    alert("User data updated!");
+  };
+
+  const submitCardHandler = () => {
+    putUser(currentUser, {
+      card: userData?.card
+        ? "XX" +
+          userData?.card.substring(
+            userData?.card.length - 3,
+            userData?.card.length
+          )
+        : "",
+    });
+
+    alert("User card data updated!");
   };
 
   return (
@@ -85,14 +113,16 @@ export default function Profile() {
               <Form.Control
                 className="inputForm mb-5"
                 type="password"
+                name="password"
                 placeholder="******"
+                onChange={onInputChangeHandler}
               />
 
               <Button
                 className="purpleBtn"
                 variant="primary"
                 size="lg"
-                type="submit"
+                onClick={() => submitHandler()}
               >
                 Update Information
               </Button>
@@ -111,6 +141,9 @@ export default function Profile() {
                 id="paymentInput"
                 type="text"
                 placeholder="XX4242"
+                name="card"
+                value={userData?.card ?? ""}
+                onChange={onInputChangeHandler}
               />
             </Col>
           </Row>
@@ -120,7 +153,7 @@ export default function Profile() {
                 className="purpleBtn"
                 variant="primary"
                 size="lg"
-                type="submit"
+                onClick={() => submitCardHandler()}
               >
                 Change Card
               </Button>

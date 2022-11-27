@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
+  updatePassword,
 } from "firebase/auth";
 
 import {
@@ -252,4 +254,13 @@ export const putCode = async (id, document = {}) => {
 
 export const deleteCode = async (id) => {
   return deleteDocument("codes", id);
+};
+
+// Users
+export const putUser = async (currentUser, document = {}) => {
+  return updateProfile(currentUser, document);
+};
+
+export const putUserPassword = async (currentUser, document = {}) => {
+  return updatePassword(currentUser, document);
 };
