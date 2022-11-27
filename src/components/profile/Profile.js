@@ -1,52 +1,93 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Form, Image } from "react-bootstrap";
 
 import { WhiteCenteredContainer } from "../common";
-import profileImg from "../../images/myProfileImg.png";
+import { UserContext } from "../../context";
 
 import "./style.css";
 
 export default function Profile() {
+  const { currentUser } = useContext(UserContext);
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    if (currentUser) {
+      setUserData(currentUser);
+    }
+  }, [currentUser]);
+
+  const getPhoto = () => {
+    if (!currentUser) return "images/avatar.png";
+
+    if (currentUser.photoURL) return currentUser.photoURL;
+    else
+      return "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060";
+  };
+
+  const onInputChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
   return (
     <WhiteCenteredContainer className="special">
       <h2 className="m-3">My Profile</h2>
+
       <section id="profile info">
-        <Image className="profileImg m-3" rounded src={profileImg}></Image>
+        <Image
+          className="profileImg m-3"
+          rounded
+          src={getPhoto()}
+          roundedCircle
+        ></Image>
+
         <Form>
           <Row className="m-3">
             <Col>
               <Form.Label className="label">Name</Form.Label>
             </Col>
+
             <Col xs={12} md={8}>
               <Form.Control
                 className="inputForm"
                 type="text"
-                placeholder="Juanito"
+                placeholder="Your name"
+                name="displayName"
+                value={userData.displayName}
+                onChange={onInputChangeHandler}
               />
             </Col>
           </Row>
+
           <Row className="m-3">
             <Col>
               <Form.Label className="label">Email address</Form.Label>
             </Col>
+
             <Col xs={12} md={8}>
               <Form.Control
                 className="inputForm"
                 type="email"
                 placeholder="juanito@gmail.com"
+                name="email"
+                value={userData.email}
+                onChange={onInputChangeHandler}
               />
             </Col>
           </Row>
+
           <Row className="m-3">
             <Col>
               <Form.Label className="label">Password</Form.Label>
             </Col>
+
             <Col xs={12} md={8}>
               <Form.Control
                 className="inputForm mb-5"
                 type="password"
                 placeholder="******"
               />
+
               <Button
                 className="purpleBtn"
                 variant="primary"
@@ -59,6 +100,7 @@ export default function Profile() {
           </Row>
         </Form>
       </section>
+
       <section id="paymentInfo">
         <Form>
           <Row className="m-3">

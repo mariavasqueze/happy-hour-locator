@@ -127,7 +127,12 @@ export const onAuthStateChangedListener = (callback) =>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// General function to save multiple records
+/**
+ * General function to save multiple records
+ * @param {string} collectionKey
+ * @param {string} documentKey
+ * @param {array} objectsToAdd
+ */
 const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db); //let's you add operations to it, and at the end begin transaction
@@ -140,39 +145,70 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
   await batch.commit();
 };
 
-// General function to save one record
-const addUpdateDocument = async (collectionKey, documentKey, object) => {
-  const docRef = doc(db, collectionKey, documentKey);
-  setDoc(docRef, object);
+/**
+ * General function to save one record
+ * @param {string} collectionKey
+ * @param {object} object
+ * @param {string|undefined} documentKey
+ * @returns new object in db
+ */
+const addUpdateDocument = async (collectionKey, object, documentKey) => {
+  const docRef = doc(db, collectionKey, documentKey ? documentKey : undefined);
+  await setDoc(docRef, object);
+
+  const docSnap = await getDoc(docRef);
+  const document = { id: docSnap.id, data: docSnap.data() };
+  console.log(document);
+
+  return document;
 };
 
-// General function to get the data from firebase
+/**
+ * General function to get the data from firebase
+ * @param {string} collectionName
+ * @returns array of objects in db
+ */
 const getDocuments = async (collectionName) => {
   const collectionRef = collection(db, collectionName);
   const querySnapshot = await getDocs(query(collectionRef));
-  const documentMap = querySnapshot.docs.map((doc) => doc.data());
+  const documentMap = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    data: doc.data(),
+  }));
   console.log(documentMap);
 
   return documentMap;
 };
 
-// General function to get one data from firebase
+/**
+ * General function to get one data from firebase
+ * @param {string} collectionKey
+ * @param {string} documentKey
+ * @returns object in db
+ */
 const getDocument = async (collectionKey, documentKey) => {
   const docRef = doc(db, collectionKey, documentKey);
   const docSnap = await getDoc(docRef);
-  console.log(docSnap.data());
+  const document = { id: docSnap.id, data: docSnap.data() };
+  console.log(document);
 
-  return docSnap.data();
+  return document;
 };
 
-// General function to delete one document
+/**
+ * General function to delete one document
+ * @param {string} collectionName
+ * @param {string} documentKey
+ */
 const deleteDocument = async (collectionName, documentKey) => {
   const collectionRef = collection(db, collectionName);
   const docRef = doc(collectionRef, documentKey);
-  deleteDoc(docRef);
+  await deleteDoc(docRef);
 };
 
 //** Functions for documents */
+
+// Locations
 export const getLocations = async () => {
   return getDocuments("locations");
 };
@@ -182,17 +218,26 @@ export const getLocation = async (documentId = "") => {
 };
 
 export const addLocation = async (document = {}) => {
-  return addUpdateDocument("locations", document.locationName, document);
+  return addUpdateDocument("locations", document, document.locationName);
 };
 
 export const addLocations = async (documents = []) => {
   return addDocuments("locations", "locationName", documents);
 };
 
-export const putLocation = async (document = {}) => {
-  return addUpdateDocument("locations", document.locationName, document);
+export const putLocation = async (id, document = {}) => {
+  return addUpdateDocument("locations", document, id);
 };
 
-export const deleteLocation = async (document = {}) => {
-  return deleteDocument("locations", document.locationName);
+export const deleteLocation = async (id) => {
+  return deleteDocument("locations", id);
+};
+
+// User
+export const getUser = async (documentId = "") => {
+  return getDocument("users", documentId);
+};
+
+export const putUser = async (id, document = {}) => {
+  return addUpdateDocument("users", document, id);
 };
