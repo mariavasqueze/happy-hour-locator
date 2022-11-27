@@ -21,31 +21,34 @@ export default function Faq() {
             <h2 className="title">Have any inquires? Send us a message!</h2>
           </Row>
           <Row>
-            <Form>
+            <Form action="https://getform.io/f/9b69c504-706e-4724-bb64-d60d0d9d37dc" method="POST">
               <Row>
-                <Col xs={12} sm={12}>
-                  <Form.Control
-                    className="contactForm"
+                <Col xs={12} sm={12}>                                    
+                  <input 
+                    className="contactForm question field"
                     as="textarea"
-                    rows={3}
-                    placeholder="Your question"
+                    
+                    placeholder="Your question"    
+                                   
                   />
                 </Col>
               </Row>
               <Row>
                 <Col xs={12} sm={6}>
-                  <Form.Control
-                    className="contactForm"
+                  <input 
+                    className="contactForm other field"
                     type="email"
                     placeholder="Your email"
+                    name="email"
                   />
                 </Col>
 
                 <Col xs={12} sm={6}>
-                  <Form.Control
-                    className="contactForm"
+                  <input 
+                    className="contactForm other field"
                     type="text"
                     placeholder="Name"
+                    name="name"
                   />
                 </Col>
               </Row>
@@ -60,10 +63,11 @@ export default function Faq() {
                   </div>
                 ))}
               </Row>
-            </Form>
+            
             <Row>
-              <Button className="Btn">Leave a reply</Button>
+              <Button className="Btn" type="submit">Leave a reply</Button>
             </Row>
+            </Form>
           </Row>
         </Col>
       </Row>
