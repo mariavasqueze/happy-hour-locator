@@ -13,7 +13,7 @@ const defaultFormFields = {
   password: "",
 };
 
-export default function Signin({ userType = 0 }) {
+export default function Signin({ userType = 0, showAdminPanel }) {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -27,6 +27,17 @@ export default function Signin({ userType = 0 }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (userType === 2) {
+      if (email === "admin@happyhour.com" && password === "123456") {
+        showAdminPanel();
+      } else {
+        alert("Credentials do not match!");
+      }
+
+      return;
+    }
+
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
 

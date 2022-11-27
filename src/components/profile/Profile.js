@@ -171,41 +171,43 @@ export default function Profile() {
         </Form>
       </section>
 
-      <section id="paymentInfo">
-        <Form>
-          <Row className="m-3">
-            <Col>
-              <Form.Label className="paymentTitle">Payment Method</Form.Label>
-              <Form.Control
-                className="inputForm mb-3"
-                id="paymentInput"
-                type="text"
-                placeholder="XX4242"
-                name="card"
-                value={userDataAdditionals?.card ?? ""}
-                onChange={onInputChangeHandlerAdditionals}
-              />
-            </Col>
-          </Row>
-          <Row className="m-3">
-            <Col xs={12} md={8}>
-              <Button
-                className="purpleBtn"
-                variant="primary"
-                size="lg"
-                onClick={() => submitCardHandler()}
-              >
-                Change Card
-              </Button>
-            </Col>
-          </Row>
-          <Row className="m-3">
-            <Form.Text className="text-muted m-2">
-              Delete Account? - Please send us a request
-            </Form.Text>
-          </Row>
-        </Form>
-      </section>
+      {currentUserAdditionals?.data?.userType === 0 && (
+        <section id="paymentInfo">
+          <Form>
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="paymentTitle">Payment Method</Form.Label>
+                <Form.Control
+                  className="inputForm mb-3"
+                  id="paymentInput"
+                  type="text"
+                  placeholder="XX4242"
+                  name="card"
+                  value={userDataAdditionals?.card ?? ""}
+                  onChange={onInputChangeHandlerAdditionals}
+                />
+              </Col>
+            </Row>
+            <Row className="m-3">
+              <Col xs={12} md={8}>
+                <Button
+                  className="purpleBtn"
+                  variant="primary"
+                  size="lg"
+                  onClick={() => submitCardHandler()}
+                >
+                  Change Card
+                </Button>
+              </Col>
+            </Row>
+            <Row className="m-3">
+              <Form.Text className="text-muted m-2">
+                Delete Account? - Please send us a request
+              </Form.Text>
+            </Row>
+          </Form>
+        </section>
+      )}
     </WhiteCenteredContainer>
   );
 }

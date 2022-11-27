@@ -76,8 +76,9 @@ export const createUserDocumentFromAuth = async (
         ...addditionalInformation,
       });
 
-      const addiRef = collection(db, "usersAdditionals");
-      await addDoc(addiRef, { uid: userSnapshot.id, card: "", userType });
+      await addAdditional(userSnapshot.id, userType);
+      // const addiRef = collection(db, "usersAdditionals");
+      // await addDoc(addiRef, { uid: userSnapshot.id, card: "", userType });
     } catch (error) {
       // console.log("Error creating the user!", error.message);
     }
@@ -282,11 +283,11 @@ export const putUserPassword = async (currentUser, document = {}) => {
 };
 
 // User additionals
-export const addAdditional = async (currentUser) => {
+export const addAdditional = async (uid, userType = 0) => {
   return addUpdateDocument("usersAdditionals", {
-    uid: currentUser.uid,
+    uid,
     card: "",
-    userType: 0,
+    userType,
   });
 };
 

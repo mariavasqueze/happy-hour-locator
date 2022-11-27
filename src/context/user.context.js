@@ -4,7 +4,7 @@ import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
   signOutUser,
-  addAdditional,
+  // addAdditional,
   getAdditional,
   // deleteAdditional,
 } from "../utils/firebase/firebase.utils";
@@ -40,6 +40,8 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (currentUser === null) setCurrentUserAdditionals(undefined);
+
     if (currentUser && currentUserAdditionals === undefined) {
       async function additionals() {
         const additionalData = await getAdditional([
@@ -52,7 +54,7 @@ export const UserProvider = ({ children }) => {
         if (additionalData.length) {
           setCurrentUserAdditionals(additionalData[0]);
         } else {
-          await addAdditional(currentUser);
+          // await addAdditional(currentUser.uid);
         }
       }
 
