@@ -19,6 +19,7 @@ import {
   query,
   getDocs,
   deleteDoc,
+  addDoc,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -153,14 +154,14 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
  * @returns new object in db
  */
 const addUpdateDocument = async (collectionKey, object, documentKey) => {
-  const docRef = doc(db, collectionKey, documentKey ? documentKey : undefined);
-  await setDoc(docRef, object);
-
-  const docSnap = await getDoc(docRef);
-  const document = { id: docSnap.id, data: docSnap.data() };
-  console.log(document);
-
-  return document;
+  let docRef = null;
+  if (documentKey) {
+    docRef = doc(db, collectionKey, documentKey);
+    await setDoc(docRef, object);
+  } else {
+    docRef = collection(db, collectionKey);
+    await addDoc(docRef, object);
+  }
 };
 
 /**
@@ -201,8 +202,7 @@ const getDocument = async (collectionKey, documentKey) => {
  * @param {string} documentKey
  */
 const deleteDocument = async (collectionName, documentKey) => {
-  const collectionRef = collection(db, collectionName);
-  const docRef = doc(collectionRef, documentKey);
+  const docRef = doc(db, collectionName, documentKey);
   await deleteDoc(docRef);
 };
 
@@ -233,11 +233,23 @@ export const deleteLocation = async (id) => {
   return deleteDocument("locations", id);
 };
 
-// User
-export const getUser = async (documentId = "") => {
-  return getDocument("users", documentId);
+// Codes
+export const getCodes = async () => {
+  return getDocuments("codes");
 };
 
-export const putUser = async (id, document = {}) => {
-  return addUpdateDocument("users", document, id);
+export const getCode = async (documentId = "") => {
+  return getDocument("codes", documentId);
+};
+
+export const addCode = async (document = {}) => {
+  return addUpdateDocument("codes", document);
+};
+
+export const putCode = async (id, document = {}) => {
+  return addUpdateDocument("codes", document, id);
+};
+
+export const deleteCode = async (id) => {
+  return deleteDocument("codes", id);
 };
