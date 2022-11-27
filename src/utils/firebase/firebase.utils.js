@@ -22,6 +22,7 @@ import {
   getDocs,
   deleteDoc,
   addDoc,
+  where,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -171,9 +172,18 @@ const addUpdateDocument = async (collectionKey, object, documentKey) => {
  * @param {string} collectionName
  * @returns array of objects in db
  */
-const getDocuments = async (collectionName) => {
+const getDocuments = async (collectionName, queries = []) => {
   const collectionRef = collection(db, collectionName);
-  const querySnapshot = await getDocs(query(collectionRef));
+
+  let q;
+
+  if (queries.length) {
+    q = query(collectionRef, ...queries.map((filter) => where(...filter)));
+  } else {
+    q = query(collectionRef);
+  }
+
+  const querySnapshot = await getDocs(q);
   const documentMap = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     data: doc.data(),
@@ -236,8 +246,8 @@ export const deleteLocation = async (id) => {
 };
 
 // Codes
-export const getCodes = async () => {
-  return getDocuments("codes");
+export const getCodes = async (queries = []) => {
+  return getDocuments("codes", queries);
 };
 
 export const getCode = async (documentId = "") => {

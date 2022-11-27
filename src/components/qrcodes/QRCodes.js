@@ -15,9 +15,7 @@ export default function QRCodes() {
 
   const queryCodes = useCallback(async () => {
     if (currentUser) {
-      const codes = await getCodes();
-
-      setUserCodes(codes.filter((code) => code.data.uid === currentUser.uid));
+      setUserCodes(await getCodes([["uid", "==", currentUser.uid]]));
     }
   }, [currentUser, getCodes]);
 
