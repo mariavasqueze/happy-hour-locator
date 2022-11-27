@@ -25,19 +25,19 @@ export default function Avatar() {
     );
   };
 
+  const getPhoto = () => {
+    if (!currentUser) return "images/avatar.png";
+
+    if (currentUser.photoURL) return currentUser.photoURL;
+    else
+      return "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060";
+  };
+
   return currentUser ? (
     <NavDropdown
       title={
         <>
-          <Image
-            alt="avatar"
-            src={
-              currentUser
-                ? "https://img.freepik.com/premium-vector/cool-nerdy-pizza-cartoon-avatar-illustration_448933-122.jpg?w=1060"
-                : "images/avatar.png"
-            }
-            roundedCircle
-          />
+          <Image alt="avatar" src={getPhoto()} roundedCircle />
           {currentUser.displayName}
         </>
       }

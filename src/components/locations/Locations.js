@@ -14,7 +14,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 
-import { UserContext, LocationsContext } from "../../context";
+import { UserContext, LocationsContext, FirebaseContext } from "../../context";
 import { Container } from "../common";
 import Card from "./Card";
 
@@ -23,6 +23,7 @@ import "./style.css";
 export default function Locations() {
   const { currentUser } = useContext(UserContext);
   const { locations } = useContext(LocationsContext);
+  const { putUser } = useContext(FirebaseContext);
 
   const [center, setCenter] = useState({ lat: 49.28189, lng: -123.11755 });
   const [selectedLocation, setSelectedLocation] = useState();
@@ -56,8 +57,8 @@ export default function Locations() {
       const bounds = new window.google.maps.LatLngBounds();
       locations.forEach((marker) => {
         bounds.extend({
-          lat: marker.lat,
-          lng: marker.lng,
+          lat: marker.data.lat,
+          lng: marker.data.lng,
         });
       });
       map.fitBounds(bounds);
@@ -66,8 +67,8 @@ export default function Locations() {
     }
   }, [map, locations]);
 
-  const registerToEventHandler = (event) => {
-    //TODO: request new code for event
+  const registerToEventHandler = (id) => {
+    putUser();
   };
 
   return (
@@ -76,17 +77,22 @@ export default function Locations() {
         <Col xs={12} sm={4}>
           {selectedLocationDetails ? (
             <Card
-              key={selectedLocationDetails.locationName}
-              location={selectedLocationDetails}
+              key={selectedLocationDetails.id}
+              location={selectedLocationDetails.data}
               onReturnClick={() => setSelectedLocationDetails(undefined)}
-              onRegisterEventClick={(event) => registerToEventHandler(event)}
+              onRegisterEventClick={(event) =>
+                registerToEventHandler(
+                  selectedLocationDetails.id,
+                  selectedLocationDetails.data
+                )
+              }
               showEvents
             />
           ) : (
             locations.map((location) => (
               <Card
-                key={location.locationName}
-                location={location}
+                key={location.id}
+                location={location.data}
                 onSeeEventsClick={() => setSelectedLocationDetails(location)}
               />
             ))
@@ -104,28 +110,28 @@ export default function Locations() {
               {bounded &&
                 locations.map((location) => (
                   <Marker
-                    key={"marker" + location.locationName}
+                    key={"marker" + location.data.locationName}
                     position={{
-                      lat: location.lat,
-                      lng: location.lng,
+                      lat: location.data.lat,
+                      lng: location.data.lng,
                     }}
                     onClick={() =>
                       setSelectedLocation({
-                        name: location.locationName,
-                        lat: location.lat,
-                        lng: location.lng,
+                        name: location.data.locationName,
+                        lat: location.data.lat,
+                        lng: location.data.lng,
                       })
                     }
                   >
-                    {selectedLocation?.name === location.locationName && (
+                    {selectedLocation?.name === location.data.locationName && (
                       <InfoWindow
                         onCloseClick={() => setSelectedLocation(undefined)}
                         zIndex={10}
                       >
                         <div className="markerStyle">
-                          <Image src={location.image} />
-                          <h5>{location.locationName}</h5>
-                          <div>{location.address}</div>
+                          <Image src={location.data.image} />
+                          <h5>{location.data.locationName}</h5>
+                          <div>{location.data.address}</div>
 
                           <br />
 
@@ -133,7 +139,7 @@ export default function Locations() {
                             <Fragment>
                               <h6>Happy Hour Description</h6>
                               <div>
-                                <b>{location.happyHourDescription}</b>
+                                <b>{location.data.happyHourDescription}</b>
                               </div>
                               <Button
                                 className="purpleBtn"
