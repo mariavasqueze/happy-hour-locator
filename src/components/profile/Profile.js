@@ -53,7 +53,7 @@ export default function Profile() {
                 type="text"
                 placeholder="Your name"
                 name="displayName"
-                value={userData.displayName}
+                value={userData?.displayName ?? ""}
                 onChange={onInputChangeHandler}
               />
             </Col>
@@ -70,7 +70,7 @@ export default function Profile() {
                 type="email"
                 placeholder="juanito@gmail.com"
                 name="email"
-                value={userData.email}
+                value={userData?.email ?? ""}
                 onChange={onInputChangeHandler}
               />
             </Col>

@@ -32,3 +32,16 @@ button.purpleBtn:hover {
   border-color: #7290e3a7;
   box-shadow: 1px 2px 1px#7291E3;
 }
+
+button.dangerBtn {
+  background-color: #e37272;
+  border-color: #e37272;
+  border-radius: 24px;
+  padding: 10px 30px;
+  margin-top: 10px;
+}
+button.dangerBtn:hover {
+  background-color: #e37272a7;
+  border-color: #e37272a7;
+  box-shadow: 1px 2px 1px#e37272;
+}

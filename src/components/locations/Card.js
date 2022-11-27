@@ -9,10 +9,12 @@ const { Img, Body, Text } = CardBS;
 
 export default function Card({
   location,
+  codes,
   showEvents,
   onReturnClick,
   onSeeEventsClick,
   onRegisterEventClick,
+  onUnRegisterEventClick,
 }) {
   const { currentUser } = useContext(UserContext);
 
@@ -52,59 +54,69 @@ export default function Card({
                     {showEvents && (
                       <Fragment>
                         <h4>Upcoming Events</h4>
-                        {location.events.map((event) => (
-                          <Fragment key={"event" + event.eventName}>
-                            <h6>{event.eventName}</h6>
-                            <Text>{event.eventDescription}</Text>
-                            <h6>Event Times:</h6>
-                            <table>
-                              <tbody>
-                                <tr>
-                                  <td>From:</td>
-                                  <td>
-                                    {new Date(
-                                      event.eventDateFrom.seconds * 1000
-                                    ).toDateString()}
-                                    ,{" "}
-                                    {new Date(
-                                      event.eventDateFrom.seconds * 1000
-                                    ).toLocaleTimeString()}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>To:</td>
-                                  <td>
-                                    {new Date(
-                                      event.eventDateTo.seconds * 1000
-                                    ).toDateString()}
-                                    ,{" "}
-                                    {new Date(
-                                      event.eventDateTo.seconds * 1000
-                                    ).toLocaleTimeString()}
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                        {location.events?.map((event) => {
+                          const codeRegistered = codes.find(
+                            (code) => code.data.eventName === event.eventName
+                          );
 
-                            {onRegisterEventClick && !event.registered ? (
-                              <Button
-                                variant="primary"
-                                className="purpleBtn"
-                                onClick={() => onRegisterEventClick()}
-                              >
-                                Register to Event
-                              </Button>
-                            ) : (
-                              <Button
-                                variant="secondary"
-                                className="purpleBtn"
-                                disabled
-                              >
-                                Registered
-                              </Button>
-                            )}
-                          </Fragment>
-                        ))}
+                          return (
+                            <Fragment key={"event" + event.eventName}>
+                              <h6>{event.eventName}</h6>
+                              <Text>{event.eventDescription}</Text>
+                              <h6>Event Times:</h6>
+                              <table>
+                                <tbody>
+                                  <tr>
+                                    <td>From:</td>
+                                    <td>
+                                      {new Date(
+                                        (event.eventDateFrom?.seconds ?? 0) *
+                                          1000
+                                      ).toDateString()}
+                                      ,{" "}
+                                      {new Date(
+                                        (event.eventDateFrom?.seconds ?? 0) *
+                                          1000
+                                      ).toLocaleTimeString()}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>To:</td>
+                                    <td>
+                                      {new Date(
+                                        (event.eventDateTo?.seconds ?? 0) * 1000
+                                      ).toDateString()}
+                                      ,{" "}
+                                      {new Date(
+                                        (event.eventDateTo?.seconds ?? 0) * 1000
+                                      ).toLocaleTimeString()}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                              {onRegisterEventClick && !codeRegistered ? (
+                                <Button
+                                  variant="primary"
+                                  className="purpleBtn"
+                                  onClick={() => onRegisterEventClick(event)}
+                                >
+                                  Register to Event
+                                </Button>
+                              ) : (
+                                <Button
+                                  variant="secondary"
+                                  className="dangerBtn"
+                                  onClick={() =>
+                                    onUnRegisterEventClick(codeRegistered.id)
+                                  }
+                                >
+                                  Unregister
+                                </Button>
+                              )}
+                            </Fragment>
+                          );
+                        })}
                       </Fragment>
                     )}
                   </Fragment>
