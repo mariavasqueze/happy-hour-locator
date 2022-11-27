@@ -9,7 +9,7 @@ export default function Login() {
     <div className="loginBack">
       <div className="specialWhiteContainer">
         <h3 id="signinTitle">Location Sign-in:</h3>
-        <Signin></Signin>
+        <Signin userType={1}></Signin>
         <NavLink id="linktoAdmin" to="/faq">
           If your business is NOT registered, please send us a message to set up
           everything for you!

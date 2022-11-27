@@ -54,7 +54,8 @@ export const db = getFirestore();
 // add user to database in users collection:
 export const createUserDocumentFromAuth = async (
   userAuth,
-  addditionalInformation = {}
+  addditionalInformation = {},
+  userType = 0
 ) => {
   if (!userAuth) return;
 
@@ -74,8 +75,11 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...addditionalInformation,
       });
+
+      const addiRef = collection(db, "usersAdditionals");
+      await addDoc(addiRef, { uid: userSnapshot.id, card: "", userType });
     } catch (error) {
-      console.log("Error creating the user!", error.message);
+      // console.log("Error creating the user!", error.message);
     }
   }
   return userDocRef;
@@ -157,9 +161,11 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
  * @returns new object in db
  */
 const addUpdateDocument = async (collectionKey, object, documentKey) => {
+  console.log(documentKey, object);
   let docRef = null;
   if (documentKey) {
     docRef = doc(db, collectionKey, documentKey);
+    console.log(docRef);
     await setDoc(docRef, object);
   } else {
     docRef = collection(db, collectionKey);
@@ -170,6 +176,7 @@ const addUpdateDocument = async (collectionKey, object, documentKey) => {
 /**
  * General function to get the data from firebase
  * @param {string} collectionName
+ * @param {array} queries
  * @returns array of objects in db
  */
 const getDocuments = async (collectionName, queries = []) => {
@@ -188,7 +195,6 @@ const getDocuments = async (collectionName, queries = []) => {
     id: doc.id,
     data: doc.data(),
   }));
-  console.log(documentMap);
 
   return documentMap;
 };
@@ -273,4 +279,25 @@ export const putUser = async (currentUser, document = {}) => {
 
 export const putUserPassword = async (currentUser, document = {}) => {
   return updatePassword(currentUser, document);
+};
+
+// User additionals
+export const addAdditional = async (currentUser) => {
+  return addUpdateDocument("usersAdditionals", {
+    uid: currentUser.uid,
+    card: "",
+    userType: 0,
+  });
+};
+
+export const putAdditional = async (id, document = {}) => {
+  return addUpdateDocument("usersAdditionals", document, id);
+};
+
+export const getAdditional = async (queries = []) => {
+  return getDocuments("usersAdditionals", queries);
+};
+
+export const deleteAdditional = async (id) => {
+  return deleteDocument("usersAdditionals", id);
 };

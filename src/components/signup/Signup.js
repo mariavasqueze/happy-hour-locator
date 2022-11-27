@@ -36,6 +36,7 @@ export default function Signup() {
         );
 
         await createUserDocumentFromAuth(user, { displayName });
+        window.location.reload();
         resetFormFields();
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
