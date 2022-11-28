@@ -66,7 +66,7 @@ export const createUserDocumentFromAuth = async (
 
   //if user data not exists (create new data in collection) -otherwise return it
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, uid } = userAuth;
     const createdAt = new Date();
     try {
       await setDoc(userDocRef, {
@@ -76,7 +76,23 @@ export const createUserDocumentFromAuth = async (
         ...addditionalInformation,
       });
 
-      await addAdditional(userSnapshot.id, userType);
+      const additionalData = await getAdditional([["uid", "==", uid]]);
+
+      if (additionalData.length) {
+        putAdditional(additionalData[0].id, {
+          ...additionalData[0].data,
+          userType,
+        });
+        console.log(userType);
+      } else {
+        await addAdditional(userSnapshot.id, userType);
+      }
+
+      // if (email === "admin@happyhour.com") {
+      //   await addAdditional(userSnapshot.id, 1);
+      // } else {
+      //   await addAdditional(userSnapshot.id, userType);
+      // }
       // const addiRef = collection(db, "usersAdditionals");
       // await addDoc(addiRef, { uid: userSnapshot.id, card: "", userType });
     } catch (error) {
@@ -162,11 +178,9 @@ const addDocuments = async (collectionKey, documentKey, objectsToAdd) => {
  * @returns new object in db
  */
 const addUpdateDocument = async (collectionKey, object, documentKey) => {
-  console.log(documentKey, object);
   let docRef = null;
   if (documentKey) {
     docRef = doc(db, collectionKey, documentKey);
-    console.log(docRef);
     await setDoc(docRef, object);
   } else {
     docRef = collection(db, collectionKey);
@@ -196,7 +210,7 @@ const getDocuments = async (collectionName, queries = []) => {
     id: doc.id,
     data: doc.data(),
   }));
-  console.log(documentMap);
+
   return documentMap;
 };
 
@@ -210,7 +224,6 @@ const getDocument = async (collectionKey, documentKey) => {
   const docRef = doc(db, collectionKey, documentKey);
   const docSnap = await getDoc(docRef);
   const document = { id: docSnap.id, data: docSnap.data() };
-  console.log(document);
 
   return document;
 };

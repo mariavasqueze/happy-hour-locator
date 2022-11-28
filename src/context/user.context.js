@@ -5,6 +5,7 @@ import {
   createUserDocumentFromAuth,
   signOutUser,
   // addAdditional,
+  // putAdditional,
   getAdditional,
   // deleteAdditional,
 } from "../utils/firebase/firebase.utils";
@@ -24,8 +25,8 @@ export const UserProvider = ({ children }) => {
     setCurrentUser,
     signOutUser,
   };
-  console.log({ currentUser });
-  console.log({ currentUserAdditionals });
+  // console.log({ currentUser });
+  // console.log({ currentUserAdditionals });
 
   //unsubscribe refers to stop listening because the firebase onAuthStateChangedListener is always listening for changes
   useEffect(() => {
@@ -47,6 +48,12 @@ export const UserProvider = ({ children }) => {
         const additionalData = await getAdditional([
           ["uid", "==", currentUser.uid],
         ]);
+
+        // put actual user to type
+        // putAdditional(additionalData[0].id, {
+        //   ...additionalData[0].data,
+        //   userType: 0,
+        // });
 
         // Uncomment to delete trash additionals of user
         // additionalData.forEach((add) => deleteAdditional(add.id));

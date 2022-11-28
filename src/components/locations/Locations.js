@@ -44,7 +44,8 @@ export default function Locations() {
   const [userCodes, setUserCodes] = useState([]);
 
   const onLoad = useCallback((map) => setMap(map), []);
-
+  // console.log(locations);
+  // deleteLocation("yezLl55EqfYNFffzuFR4");
   const containerStyle = {
     width: "100%",
     height: "100%",

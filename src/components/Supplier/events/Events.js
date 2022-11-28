@@ -1,35 +1,43 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { WhiteCenteredContainer } from "../../common";
 import "./style.css";
 import { NavLink } from "react-router-dom";
 
-import { FirebaseContext, LocationsContext } from "../../../context";
+import { FirebaseContext } from "../../../context";
 
 export default function Events({ location }) {
-  const { putLocation, deleteLocation } = useContext(FirebaseContext);
-  const { locations } = useContext(LocationsContext);
+  const refStart = useRef();
+  const refEnd = useRef();
+  const refStartTime = useRef();
+  const refEndTime = useRef();
+  const { putLocation } = useContext(FirebaseContext);
+  const [event, setEvent] = useState({});
 
-  useEffect(() => {
-    console.log(location);
-
+  const submitHandler = async () => {
     const newLoc = JSON.parse(JSON.stringify(location));
 
     if (!newLoc.events) newLoc.events = [];
 
-    newLoc.events.push({
-      eventName: "New Event 4",
-      eventDescription: "description for event 4",
-      eventDateTo: new Date(),
-      eventDateFrom: new Date(),
-    });
-    console.log(newLoc);
-    // locations.forEach((location) => deleteLocation(location.id));
-    putLocation(newLoc.locationName, newLoc);
-  }, [location, putLocation]);
+    event.eventDateFrom = new Date(
+      refStart.current.value + " " + refStartTime.current.value
+    );
+    event.eventDateTo = new Date(
+      refEnd.current.value + " " + refEndTime.current.value
+    );
 
-  const refStart = useRef();
-  const refEnd = useRef();
+    newLoc.events.push(event);
+
+    putLocation(newLoc.locationName, newLoc);
+
+    alert("New event created!");
+  };
+
+  const onInputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setEvent({ ...event, [name]: value });
+  };
+
   return (
     <WhiteCenteredContainer>
       <Row className="m-3">
@@ -42,7 +50,13 @@ export default function Events({ location }) {
             <Form.Label className="label">Event Name:</Form.Label>
           </Col>
           <Col xs={12} md={8}>
-            <Form.Control className="inputForm" type="text" />
+            <Form.Control
+              className="inputForm"
+              type="text"
+              name="eventName"
+              value={event?.eventName ?? ""}
+              onChange={onInputChangeHandler}
+            />
           </Col>
         </Row>
 
@@ -83,13 +97,23 @@ export default function Events({ location }) {
             <Form.Label className="label">Start Time:</Form.Label>
           </Col>
           <Col xs={12} md={3}>
-            <Form.Control className="optsel" type="time" id="startTime" />
+            <Form.Control
+              className="optsel"
+              type="time"
+              id="startTime"
+              ref={refStartTime}
+            />
           </Col>
           <Col xs={12} md={3}>
             <Form.Label className="label">End Time:</Form.Label>
           </Col>
           <Col xs={12} md={3}>
-            <Form.Control className="optsel" type="time" id="endTime" />
+            <Form.Control
+              className="optsel"
+              type="time"
+              id="endTime"
+              ref={refEndTime}
+            />
           </Col>
         </Row>
 
@@ -97,14 +121,20 @@ export default function Events({ location }) {
           <Form.Label className="label">
             Special Discounts / Description
           </Form.Label>
-          <Form.Control id="inputDesc" type="text" />
+          <Form.Control
+            id="inputDesc"
+            type="text"
+            name="eventDescription"
+            value={event?.eventDescription ?? ""}
+            onChange={onInputChangeHandler}
+          />
 
           <Button
             id="eventBtn"
             className="purpleBtn"
             variant="primary"
             size="sm"
-            type="submit"
+            onClick={() => submitHandler()}
           >
             Create Event
           </Button>

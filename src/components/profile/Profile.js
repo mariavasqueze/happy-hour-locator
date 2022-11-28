@@ -99,6 +99,9 @@ export default function Profile() {
           )
         : "",
     });
+
+    alert("Card data updated!");
+    window.location.reload();
   };
 
   const submitLocationHandler = async () => {

@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [addingEvent, setAddingEvent] = useState(false);
   const { currentUser } = useContext(UserContext);
   const { getLocations, putCode, getCodes } = useContext(FirebaseContext);
-  console.log(codes);
+
   useEffect(() => {
     async function query() {
       if (currentUser) {
@@ -47,7 +47,7 @@ export default function Dashboard() {
     const codeObj = codes.find(
       (cod) => cod.data.eventName === event.eventName && cod.data.code === code
     );
-    console.log(codeObj);
+
     if (!codeObj) {
       alert("Code not found!");
     } else {
