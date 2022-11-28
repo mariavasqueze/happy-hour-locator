@@ -196,7 +196,7 @@ const getDocuments = async (collectionName, queries = []) => {
     id: doc.id,
     data: doc.data(),
   }));
-
+  console.log(documentMap);
   return documentMap;
 };
 
@@ -228,8 +228,8 @@ const deleteDocument = async (collectionName, documentKey) => {
 //** Functions for documents */
 
 // Locations
-export const getLocations = async () => {
-  return getDocuments("locations");
+export const getLocations = async (queries = []) => {
+  return getDocuments("locations", queries);
 };
 
 export const getLocation = async (documentId = "") => {
