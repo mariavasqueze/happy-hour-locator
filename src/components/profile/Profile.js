@@ -8,10 +8,17 @@ import "./style.css";
 
 export default function Profile() {
   const { currentUser, currentUserAdditionals } = useContext(UserContext);
-  const { putUser, putUserPassword, putAdditional } =
-    useContext(FirebaseContext);
+  const {
+    putUser,
+    putUserPassword,
+    putAdditional,
+    getLocations,
+    putLocation,
+    addLocation,
+  } = useContext(FirebaseContext);
   const [userData, setUserData] = useState();
   const [userDataAdditionals, setUserDataAdditionals] = useState();
+  const [location, setLocation] = useState({});
 
   useEffect(() => {
     if (currentUser) {
@@ -23,13 +30,25 @@ export default function Profile() {
   }, [currentUser]);
 
   useEffect(() => {
-    if (currentUserAdditionals) {
-      setUserDataAdditionals({
-        ...currentUserAdditionals,
-        card: currentUserAdditionals?.data?.card,
-      });
+    async function query() {
+      if (currentUserAdditionals) {
+        setUserDataAdditionals({
+          ...currentUserAdditionals,
+          card: currentUserAdditionals?.data?.card,
+        });
+
+        if (currentUserAdditionals?.data?.userType === 1) {
+          const loc = await getLocations([["uid", "==", currentUser.uid]]);
+
+          if (loc.length) {
+            setLocation(loc[0].data);
+          }
+        }
+      }
     }
-  }, [currentUserAdditionals]);
+
+    query();
+  }, [currentUserAdditionals, getLocations, currentUser?.uid]);
 
   const getPhoto = () => {
     if (!currentUser) return "images/avatar.png";
@@ -47,6 +66,11 @@ export default function Profile() {
   const onInputChangeHandlerAdditionals = (event) => {
     const { name, value } = event.target;
     setUserDataAdditionals({ ...userDataAdditionals, [name]: value });
+  };
+
+  const onInputChangeHandlerLocation = (event) => {
+    const { name, value } = event.target;
+    setLocation({ ...location, [name]: value });
   };
 
   const submitHandler = async () => {
@@ -75,8 +99,17 @@ export default function Profile() {
           )
         : "",
     });
+  };
 
-    alert("User card data updated!");
+  const submitLocationHandler = async () => {
+    if (location.id) {
+      await putLocation(location.id, location);
+    } else {
+      location.uid = currentUser.uid;
+      await addLocation(location);
+    }
+
+    alert("Location data updated!");
     window.location.reload();
   };
 
@@ -200,6 +233,142 @@ export default function Profile() {
                 </Button>
               </Col>
             </Row>
+            <Row className="m-3">
+              <Form.Text className="text-muted m-2">
+                Delete Account? - Please send us a request
+              </Form.Text>
+            </Row>
+          </Form>
+        </section>
+      )}
+
+      {currentUserAdditionals?.data?.userType === 1 && (
+        <section id="locationInfo">
+          <h2 className="m-3">Location</h2>
+          <Image
+            className="profileImg m-3"
+            rounded
+            src={location.image ?? ""}
+          ></Image>
+
+          <Form>
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">Photo URL</Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="image"
+                  value={location.image ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">Name</Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="locationName"
+                  value={location.locationName ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">Address</Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="address"
+                  value={location.address ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">Latitude</Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="lat"
+                  value={location.lat ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">Longitude</Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="lng"
+                  value={location.lng ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col>
+                <Form.Label className="label">
+                  Happy Hour Description
+                </Form.Label>
+              </Col>
+
+              <Col xs={12} md={8}>
+                <Form.Control
+                  className="inputForm"
+                  type="text"
+                  placeholder=""
+                  name="happyHourDescription"
+                  value={location.happyHourDescription ?? ""}
+                  onChange={onInputChangeHandlerLocation}
+                />
+              </Col>
+            </Row>
+
+            <Row className="m-3">
+              <Col xs={12} md={8}>
+                <Button
+                  className="purpleBtn"
+                  variant="primary"
+                  size="lg"
+                  onClick={() => submitLocationHandler()}
+                >
+                  Update Location
+                </Button>
+              </Col>
+            </Row>
+
             <Row className="m-3">
               <Form.Text className="text-muted m-2">
                 Delete Account? - Please send us a request
