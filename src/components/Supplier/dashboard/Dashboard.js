@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [codes, setCodes] = useState([]);
   const [addingEvent, setAddingEvent] = useState(false);
   const { currentUser } = useContext(UserContext);
-  const { getLocations, putLocation, getCodes } = useContext(FirebaseContext);
+  const { getLocations, putCode, getCodes } = useContext(FirebaseContext);
   console.log(codes);
   useEffect(() => {
     async function query() {
@@ -44,16 +44,20 @@ export default function Dashboard() {
   }, [queryCodes]);
 
   const scannedCode = (code, event) => {
-    if (
-      codes
-        .filter(
-          (cod) => !cod.data.redeemed && cod.data.eventName === event.eventName
-        )
-        .some((cod) => cod.data.code === code)
-    ) {
-      alert("Code scanned successfuly!");
-    } else {
+    const codeObj = codes.find(
+      (cod) => cod.data.eventName === event.eventName && cod.data.code === code
+    );
+    console.log(codeObj);
+    if (!codeObj) {
       alert("Code not found!");
+    } else {
+      putCode(codeObj.id, {
+        ...codeObj.data,
+        redeemed: !codeObj.data.redeemed,
+      });
+
+      alert("Code scanned successfuly!");
+      queryCodes();
     }
   };
 

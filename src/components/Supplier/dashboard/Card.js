@@ -102,19 +102,25 @@ export default function Card({ event, codes, scannedCode }) {
               </Button>
             </Col>
 
-            <Col>{readingCode && <video id="video" width="100%"></video>}</Col>
+            <Col xs={12}>
+              {readingCode && <video id="video" width="100%"></video>}
+            </Col>
           </Row>
 
           <br />
 
           <Row>
             {codes
-              .filter((cod) => cod.redemeed)
+              .filter(
+                (cod) =>
+                  cod.data.redeemed && cod.data.eventName === event.eventName
+              )
               .map((code) => (
-                <Col key={code.code}>
+                <Col key={code.data.code}>
                   <CardBS>
                     <Body>
-                      <QRCode size={50} value={code.code} /> {code.code}
+                      <QRCode size={50} value={code.data.code} />{" "}
+                      {code.data.code}
                     </Body>
                   </CardBS>
                 </Col>

@@ -18,8 +18,8 @@ export default function Events({ location }) {
     if (!newLoc.events) newLoc.events = [];
 
     newLoc.events.push({
-      eventName: "New Event 3",
-      eventDescription: "description for event 3",
+      eventName: "New Event 4",
+      eventDescription: "description for event 4",
       eventDateTo: new Date(),
       eventDateFrom: new Date(),
     });
