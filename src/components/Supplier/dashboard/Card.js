@@ -14,14 +14,14 @@ codeReader
     (videoInputDevices) => (selectedDeviceId = videoInputDevices[0].deviceId)
   );
 
-export default function Card({ event, scannedCode }) {
+export default function Card({ event, codes, scannedCode }) {
   const [readingCode, setReadingCode] = useState(false);
 
   const decodeOnce = useCallback(() => {
     codeReader
       .decodeFromInputVideoDevice(selectedDeviceId, "video")
       .then((result) => {
-        scannedCode(result.text);
+        scannedCode(result.text, event);
         codeReader.reset();
         setReadingCode(false);
       })
@@ -30,7 +30,7 @@ export default function Card({ event, scannedCode }) {
         codeReader.reset();
         setReadingCode(false);
       });
-  }, [scannedCode]);
+  }, [scannedCode, event]);
 
   useEffect(() => {
     if (readingCode) decodeOnce();
@@ -59,15 +59,25 @@ export default function Card({ event, scannedCode }) {
                   <tr>
                     <td>From:</td>
                     <td>
-                      {event.eventDateFrom.toDateString()},{" "}
-                      {event.eventDateFrom.toLocaleTimeString()}
+                      {new Date(
+                        (event.eventDateFrom?.seconds ?? 0) * 1000
+                      ).toDateString()}
+                      ,{" "}
+                      {new Date(
+                        (event.eventDateFrom?.seconds ?? 0) * 1000
+                      ).toLocaleTimeString()}
                     </td>
                   </tr>
                   <tr>
                     <td>To:</td>
                     <td>
-                      {event.eventDateTo.toDateString()},{" "}
-                      {event.eventDateTo.toLocaleTimeString()}
+                      {new Date(
+                        (event.eventDateTo?.seconds ?? 0) * 1000
+                      ).toDateString()}
+                      ,{" "}
+                      {new Date(
+                        (event.eventDateTo?.seconds ?? 0) * 1000
+                      ).toLocaleTimeString()}
                     </td>
                   </tr>
                 </tbody>
@@ -98,15 +108,17 @@ export default function Card({ event, scannedCode }) {
           <br />
 
           <Row>
-            {event.codes.map((code) => (
-              <Col key={code.code}>
-                <CardBS>
-                  <Body>
-                    <QRCode size={50} value={code.code} /> {code.code}
-                  </Body>
-                </CardBS>
-              </Col>
-            ))}
+            {codes
+              .filter((cod) => cod.redemeed)
+              .map((code) => (
+                <Col key={code.code}>
+                  <CardBS>
+                    <Body>
+                      <QRCode size={50} value={code.code} /> {code.code}
+                    </Body>
+                  </CardBS>
+                </Col>
+              ))}
           </Row>
         </Col>
       </Row>

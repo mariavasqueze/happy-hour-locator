@@ -11,6 +11,7 @@ import {
   getLocations,
   putLocation,
   addLocation,
+  deleteLocation,
 } from "../utils/firebase/firebase.utils.js";
 
 export const FirebaseContext = createContext();
@@ -29,6 +30,7 @@ export const FirebaseProvider = ({ children }) => {
         getLocations,
         putLocation,
         addLocation,
+        deleteLocation,
       }}
     >
       {children}

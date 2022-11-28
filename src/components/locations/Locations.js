@@ -93,6 +93,7 @@ export default function Locations() {
     await addCode({
       ...event,
       redeemed: false,
+      locationId: selectedLocationDetails.id,
       locationName: selectedLocationDetails.data.locationName,
       image: selectedLocationDetails.data.image,
       uid: currentUser.uid,
