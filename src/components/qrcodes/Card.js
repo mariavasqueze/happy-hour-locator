@@ -1,10 +1,10 @@
 import React from "react";
-import { Col, Row, Card as CardBS } from "react-bootstrap";
+import { Col, Row, Card as CardBS, Button } from "react-bootstrap";
 import QRCode from "react-qr-code";
 
 const { Img, Body, Text } = CardBS;
 
-export default function Card({ code }) {
+export default function Card({ code, codeId, onUnRegisterEventClick }) {
   return (
     <Col xs={12} className={"cardContainer "}>
       <div className={code.redeemed ? "layer" : ""}></div>
@@ -22,15 +22,25 @@ export default function Card({ code }) {
                   <tr>
                     <td>From:</td>
                     <td>
-                      {code.eventDateFrom.toDateString()},{" "}
-                      {code.eventDateFrom.toLocaleTimeString()}
+                      {new Date(
+                        (code.eventDateFrom?.seconds ?? 0) * 1000
+                      ).toDateString()}
+                      ,{" "}
+                      {new Date(
+                        (code.eventDateFrom?.seconds ?? 0) * 1000
+                      ).toLocaleTimeString()}
                     </td>
                   </tr>
                   <tr>
                     <td>To:</td>
                     <td>
-                      {code.eventDateTo.toDateString()},{" "}
-                      {code.eventDateTo.toLocaleTimeString()}
+                      {new Date(
+                        (code.eventDateTo?.seconds ?? 0) * 1000
+                      ).toDateString()}
+                      ,{" "}
+                      {new Date(
+                        (code.eventDateTo?.seconds ?? 0) * 1000
+                      ).toLocaleTimeString()}
                     </td>
                   </tr>
                 </tbody>
@@ -50,6 +60,15 @@ export default function Card({ code }) {
               }
             ></span>
             {code.redeemed ? " Redeemed " : " Available "}
+          </div>
+          <div>
+            <Button
+              variant="secondary"
+              className="dangerBtn"
+              onClick={() => onUnRegisterEventClick(codeId)}
+            >
+              Unregister
+            </Button>
           </div>
         </Col>
       </Row>

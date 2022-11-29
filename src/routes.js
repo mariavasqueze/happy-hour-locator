@@ -22,4 +22,5 @@ export const routes = [
   { route: "/admin/dashboard", element: <Dashboard /> },
   { route: "/admin/events", element: <Events /> },
   { route: "/admin/login", element: <Login /> },
+  { route: "/admin/login/admin", element: <Login userType={2} /> },
 ];

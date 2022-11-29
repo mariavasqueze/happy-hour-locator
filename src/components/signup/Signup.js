@@ -14,7 +14,7 @@ const defaultFormFields = {
   confirmPassword: "",
 };
 
-export default function Signup() {
+export default function Signup({ userType = 0 }) {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -35,7 +35,8 @@ export default function Signup() {
           password
         );
 
-        await createUserDocumentFromAuth(user, { displayName });
+        await createUserDocumentFromAuth(user, { displayName }, userType);
+        window.location.reload();
         resetFormFields();
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {

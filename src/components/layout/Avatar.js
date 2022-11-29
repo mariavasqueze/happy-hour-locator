@@ -8,7 +8,8 @@ import { UserContext } from "../../context";
 const { Item, Divider } = NavDropdown;
 
 export default function Avatar() {
-  const { currentUser, signOutUser } = useContext(UserContext);
+  const { currentUser, currentUserAdditionals, signOutUser } =
+    useContext(UserContext);
 
   const items = () => {
     return (
@@ -16,9 +17,15 @@ export default function Avatar() {
         <NavLink className="dropdown-item" to="/profile">
           My Profile
         </NavLink>
-        <NavLink className="dropdown-item" to="/qrcodes">
-          My QR Codes
-        </NavLink>
+        {currentUserAdditionals?.data?.userType === 0 ? (
+          <NavLink className="dropdown-item" to="/qrcodes">
+            My QR Codes
+          </NavLink>
+        ) : (
+          <NavLink className="dropdown-item" to="/admin/dashboard">
+            My Events
+          </NavLink>
+        )}
         <Divider />
         <Item onClick={signOutUser}>Log Out</Item>
       </>

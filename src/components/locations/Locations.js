@@ -44,7 +44,8 @@ export default function Locations() {
   const [userCodes, setUserCodes] = useState([]);
 
   const onLoad = useCallback((map) => setMap(map), []);
-
+  // console.log(locations);
+  // deleteLocation("yezLl55EqfYNFffzuFR4");
   const containerStyle = {
     width: "100%",
     height: "100%",
@@ -57,17 +58,15 @@ export default function Locations() {
 
   const queryCodes = useCallback(async () => {
     if (currentUser) {
-      const codes = await getCodes();
-
-      setUserCodes(codes.filter((code) => code.data.uid === currentUser.uid));
+      setUserCodes(await getCodes([["uid", "==", currentUser.uid]]));
     }
   }, [currentUser, getCodes]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setCenter({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: +position.coords.latitude,
+        lng: +position.coords.longitude,
       });
     });
   }, []);
@@ -77,8 +76,8 @@ export default function Locations() {
       const bounds = new window.google.maps.LatLngBounds();
       locations.forEach((marker) => {
         bounds.extend({
-          lat: marker.data?.lat ?? 0,
-          lng: marker.data?.lng ?? 0,
+          lat: +marker.data?.lat ?? 0,
+          lng: +marker.data?.lng ?? 0,
         });
       });
       map.fitBounds(bounds);
@@ -95,6 +94,7 @@ export default function Locations() {
     await addCode({
       ...event,
       redeemed: false,
+      locationId: selectedLocationDetails.id,
       locationName: selectedLocationDetails.data.locationName,
       image: selectedLocationDetails.data.image,
       uid: currentUser.uid,
@@ -147,14 +147,14 @@ export default function Locations() {
                   <Marker
                     key={"marker" + location.data?.locationName}
                     position={{
-                      lat: location.data?.lat ?? 0,
-                      lng: location.data?.lng ?? 0,
+                      lat: +location.data?.lat ?? 0,
+                      lng: +location.data?.lng ?? 0,
                     }}
                     onClick={() =>
                       setSelectedLocation({
                         name: location.data.locationName,
-                        lat: location.data?.lat ?? 0,
-                        lng: location.data?.lng ?? 0,
+                        lat: +location.data?.lat ?? 0,
+                        lng: +location.data?.lng ?? 0,
                       })
                     }
                   >

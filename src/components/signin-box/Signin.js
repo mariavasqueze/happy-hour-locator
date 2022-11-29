@@ -13,7 +13,7 @@ const defaultFormFields = {
   password: "",
 };
 
-export default function Signin() {
+export default function Signin({ userType = 0, showAdminPanel }) {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -27,12 +27,20 @@ export default function Signin() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (userType === 2) {
+      if (email === "admin@happyhour.com" && password === "123456") {
+        showAdminPanel();
+      } else {
+        alert("Credentials do not match!");
+      }
+
+      return;
+    }
+
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      // console.log(response);
+      await signInAuthUserWithEmailAndPassword(email, password);
+
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -65,6 +73,7 @@ export default function Signin() {
           name="email"
           value={email}
         />
+
         <Form.Control
           className="inputForm"
           type="password"
@@ -83,16 +92,19 @@ export default function Signin() {
           >
             Sign In
           </Button>
-          <Button
-            onClick={signInWithGoogle}
-            id="googleBtn"
-            className="purpleBtn"
-            variant="primary"
-            size="lg"
-            type="button"
-          >
-            Google Sign In
-          </Button>
+
+          {userType === 0 && (
+            <Button
+              onClick={signInWithGoogle}
+              id="googleBtn"
+              className="purpleBtn"
+              variant="primary"
+              size="lg"
+              type="button"
+            >
+              Google Sign In
+            </Button>
+          )}
         </div>
       </Form>
     </div>
