@@ -25,6 +25,7 @@ export default function Home() {
             <NavLink id="specialBtn" to="/signup">
               SIGN UP
             </NavLink>
+            <NavLink to="/administrator" style={{color:'white'}}>a</NavLink>
           </div>
           <Image className="homePageImg" rounded src={homePageImg}></Image>
         </Col>
