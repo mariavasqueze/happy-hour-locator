@@ -85,7 +85,7 @@ export default function Profile() {
     }
 
     alert("User data updated!");
-    window.location.reload();
+    window.location.href = "https://www.happyhourlocator.ca/";
   };
 
   const submitCardHandler = async () => {
@@ -101,7 +101,7 @@ export default function Profile() {
     });
 
     alert("Card data updated!");
-    window.location.reload();
+    window.location.href = "https://www.happyhourlocator.ca/";
   };
 
   const submitLocationHandler = async () => {
@@ -113,7 +113,7 @@ export default function Profile() {
     }
 
     alert("Location data updated!");
-    window.location.reload();
+    window.location.href = "https://www.happyhourlocator.ca/";
   };
 
   return (

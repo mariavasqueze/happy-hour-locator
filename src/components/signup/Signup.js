@@ -36,7 +36,7 @@ export default function Signup({ userType = 0 }) {
         );
 
         await createUserDocumentFromAuth(user, { displayName }, userType);
-        window.location.reload();
+        window.location.href = "https://www.happyhourlocator.ca/";
         resetFormFields();
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
