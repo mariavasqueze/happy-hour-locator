@@ -29,7 +29,7 @@ export default function Signin({ userType = 0, showAdminPanel }) {
     event.preventDefault();
 
     if (userType === 2) {
-      if (email === "admin@happyhour.com" && password === "123456") {
+      if (email === "admin@happyhourlocator.ca" && password === "123456") {
         showAdminPanel();
       } else {
         alert("Credentials do not match!");
