@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# Happy Hour Locator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[This is an external link to HappyHourLocator.ca](https://www.happyhourlocator.ca/)
+
+This is a React Web App team project. The app let's all users find the happy hours of restaurants and bars in Metro Vancouver using the Google maps API.  Users can join as a member to get special discounts and access to special discounts at the locations. Restaurants and Bars' administrators can edit the location's information and add new events so user's can assist, and then read the QR codes for each person when the customer is at the location. 
+
+Techs used: React, Firebase, Bootstrap, HTML, CSS
+
+
+https://user-images.githubusercontent.com/87947324/209494594-9c2e9d33-eccc-455c-a857-da7c7fa64e8e.mp4
+
+
+### The user: 
+- Can see the happy hours of all locations and special events set by the restaurants and bars and register to get a QR code for the event
+- They can can see all QR codes for events on the My QR Codes tab below photo id, and all profile information in My Profile page.
+- Users can sign in with email or with Google account
+
+### The Location Administrator:
+- Can add the location information so it appears as a point on the user's map. They can change this information at any time.
+- They can create events and see list of existing events.
+- When a user is in the location they can read their QR code which will be saved as read so it can't be used twice.
+- To secure user's information, the location only gets the QR code id, as it is saved on the database, no personal information.
+
+### The backend:
+- This react web application is using firebase as the backend. Saving all the information to show the user's profile and locations' information. This also let's it pass the data to the Google maps API, so it creates the point in the map when the location adminsitrator adds it as the coordinates on their profile. 
+- Authorization is also being handled with firebase, letting us auhtorize users with a registered email or with a Google account to sign in the app. 
+
+
+
 
 ## Available Scripts
 
@@ -24,47 +50,4 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
