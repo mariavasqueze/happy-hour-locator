@@ -2,7 +2,7 @@
 
 [This is an external link to HappyHourLocator.ca](https://www.happyhourlocator.ca/)
 
-This is a React Web App team project. The app let's all users find the happy hours of restaurants and bars in Metro Vancouver using the Google maps API.  Users can join as a member to get special discounts and access to special discounts at the locations. Restaurants and Bars' administrators can edit the location's information and add new events so user's can assist, and then read the QR codes for each person when the customer is at the location. 
+This is a React Web App team project. The app let's all users find the happy hours of restaurants and bars in Metro Vancouver using the Google maps API.  Users can join as a member to get special discounts and access to special discounts at the locations. Restaurants and Bars' administrators can edit the location's information and add new events so user's can assist, and then read the QR codes for each person when the customer is at the location. User authorization and database is handled with Firebase. 
 
 Techs used: React, Firebase, Bootstrap, HTML, CSS
 
