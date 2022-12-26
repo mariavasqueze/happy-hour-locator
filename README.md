@@ -7,7 +7,11 @@ This is a React Web App team project. The app let's all users find the happy hou
 Techs used: React, Firebase, Bootstrap, HTML, CSS
 
 
-https://user-images.githubusercontent.com/87947324/209494594-9c2e9d33-eccc-455c-a857-da7c7fa64e8e.mp4
+
+
+https://user-images.githubusercontent.com/87947324/209494701-1d82a955-125c-4368-bf43-0870848f1510.mp4
+
+*Video quality is low, to show complete walkthrough here.
 
 
 ### The user: 
